@@ -7,6 +7,7 @@ App iOS em SwiftUI com as **1019 perguntas** do *Livro dos Espíritos* (traduç�
 - Navegação por **Partes** → **Capítulos** → **Seções** → **Perguntas**
 - Detalhe de cada pergunta com resposta dos Espíritos, comentário de Kardec e notas/adendos
 - **Busca** por palavra-chave, número, tema, resposta ou comentário
+- **Pergunta do dia** — notificação local às 19:30 com pergunta aleatória, sem repetir até completar as 1019
 
 ## Como abrir
 
