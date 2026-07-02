@@ -6,8 +6,37 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		W00100122F00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B00100092F00000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = W00100062F00000100000001;
+			remoteInfo = LivroDosEspiritosWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		W00100132F00000100000001 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		B00100012F00000100000001 /* LivroDosEspiritos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivroDosEspiritos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		W00100012F00000100000001 /* LivroDosEspiritosWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivroDosEspiritosWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +45,22 @@
 			path = LivroDosEspiritos;
 			sourceTree = "<group>";
 		};
+		W00100022F00000100000001 /* LivroDosEspiritosWatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LivroDosEspiritosWatch;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B00100032F00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		W00100032F00000100000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				B00100022F00000100000001 /* LivroDosEspiritos */,
+				W00100022F00000100000001 /* LivroDosEspiritosWatch */,
 				B00100052F00000100000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B00100012F00000100000001 /* LivroDosEspiritos.app */,
+				W00100012F00000100000001 /* LivroDosEspiritosWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,10 +98,12 @@
 				B00100072F00000100000001 /* Sources */,
 				B00100032F00000100000001 /* Frameworks */,
 				B00100082F00000100000001 /* Resources */,
+				W00100132F00000100000001 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				W00100142F00000100000001 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B00100022F00000100000001 /* LivroDosEspiritos */,
@@ -68,6 +113,28 @@
 			);
 			productName = LivroDosEspiritos;
 			productReference = B00100012F00000100000001 /* LivroDosEspiritos.app */;
+			productType = "com.apple.product-type.application";
+		};
+		W00100062F00000100000001 /* LivroDosEspiritosWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = W001000A2F00000100000001 /* Build configuration list for PBXNativeTarget "LivroDosEspiritosWatch" */;
+			buildPhases = (
+				W00100072F00000100000001 /* Sources */,
+				W00100032F00000100000001 /* Frameworks */,
+				W00100082F00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				W00100022F00000100000001 /* LivroDosEspiritosWatch */,
+			);
+			name = LivroDosEspiritosWatch;
+			packageProductDependencies = (
+			);
+			productName = LivroDosEspiritosWatch;
+			productReference = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -81,6 +148,9 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					B00100062F00000100000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					W00100062F00000100000001 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
@@ -101,12 +171,20 @@
 			projectRoot = "";
 			targets = (
 				B00100062F00000100000001 /* LivroDosEspiritos */,
+				W00100062F00000100000001 /* LivroDosEspiritosWatch */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B00100082F00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		W00100082F00000100000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -123,7 +201,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		W00100072F00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		W00100142F00000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = W00100062F00000100000001 /* LivroDosEspiritosWatch */;
+			targetProxy = W00100122F00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B001000C2F00000100000001 /* Debug */ = {
@@ -227,6 +320,65 @@
 			};
 			name = Release;
 		};
+		W001000C2F00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56JG4Q8S7U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Livro dos Espíritos";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.alliston.LivroDosEspiritos;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alliston.LivroDosEspiritos.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		W001000D2F00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56JG4Q8S7U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Livro dos Espíritos";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.alliston.LivroDosEspiritos;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alliston.LivroDosEspiritos.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -244,6 +396,15 @@
 			buildConfigurations = (
 				B001000C2F00000100000001 /* Debug */,
 				B001000D2F00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		W001000A2F00000100000001 /* Build configuration list for PBXNativeTarget "LivroDosEspiritosWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				W001000C2F00000100000001 /* Debug */,
+				W001000D2F00000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
