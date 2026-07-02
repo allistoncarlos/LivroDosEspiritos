@@ -37,16 +37,30 @@ enum NotificationSchedulePreferences {
         }
     }
 
-    static func formattedTime(from date: Date) -> String {
+    private static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
         formatter.dateStyle = .none
         formatter.timeStyle = .short
-        return formatter.string(from: date)
+        return formatter
+    }()
+
+    static func formattedTime(from date: Date) -> String {
+        timeFormatter.string(from: date)
     }
 
     static var formattedTime: String {
         formattedTime(from: scheduledTime)
+    }
+
+    static func timeComponents(from date: Date) -> (hour: Int, minute: Int) {
+        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+        return (components.hour ?? defaultHour, components.minute ?? defaultMinute)
+    }
+
+    static func matchesSavedTime(_ date: Date) -> Bool {
+        let components = timeComponents(from: date)
+        return components.hour == hour && components.minute == minute
     }
 
     private static func calendarDate(from hour: Int, minute: Int) -> Date {

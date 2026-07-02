@@ -1,49 +1,47 @@
 import SwiftUI
 import UserNotifications
 
+@Observable
+final class NotificationTimeDraft {
+    var pickerTime: Date
+    private(set) var formattedPreview: String
+
+    init() {
+        let saved = NotificationSchedulePreferences.scheduledTime
+        pickerTime = saved
+        formattedPreview = NotificationSchedulePreferences.formattedTime(from: saved)
+    }
+
+    func setPickerTime(_ date: Date) {
+        pickerTime = date
+        formattedPreview = NotificationSchedulePreferences.formattedTime(from: date)
+    }
+
+    func reloadFromSaved() {
+        setPickerTime(NotificationSchedulePreferences.scheduledTime)
+    }
+}
+
 struct DailyQuestionSettingsView: View {
     @Environment(BookDataStore.self) private var store
-    @State private var authorizationStatus: UNAuthorizationStatus = .notDetermined
-    @State private var pendingCount = 0
-    @State private var notifiedCount = 0
-    @State private var remainingCount = 1019
-    @State private var notificationTime = NotificationSchedulePreferences.scheduledTime
-    @State private var scheduleUpdateTask: Task<Void, Never>?
+    @State private var timeDraft = NotificationTimeDraft()
+    @State private var authorizationStatus: UNAuthorizationStatus?
+    @State private var pendingCount: Int?
+    @State private var notifiedCount = DailyQuestionRotationStore.shared.notifiedInCurrentCycle
+    @State private var remainingCount = DailyQuestionRotationStore.shared.remainingCount
     @State private var toastMessage: String?
     @State private var toastDismissTask: Task<Void, Never>?
 
     private let rotationStore = DailyQuestionRotationStore.shared
 
-    private var formattedNotificationTime: String {
-        NotificationSchedulePreferences.formattedTime(from: notificationTime)
-    }
-
     var body: some View {
         List {
             Section {
-                Label {
-                    Text("Todos os dias às \(formattedNotificationTime) você recebe uma pergunta aleatória do livro.")
-                } icon: {
-                    Image(systemName: "bell.badge")
-                        .foregroundStyle(.orange)
-                }
+                NotificationTimeDescription(draft: timeDraft)
             }
 
             Section("Horário") {
-                DatePicker(
-                    "Receber às",
-                    selection: $notificationTime,
-                    displayedComponents: .hourAndMinute
-                )
-                .onChange(of: notificationTime) { _, newValue in
-                    NotificationSchedulePreferences.scheduledTime = newValue
-                    scheduleUpdateTask?.cancel()
-                    scheduleUpdateTask = Task {
-                        try? await Task.sleep(for: .milliseconds(400))
-                        guard !Task.isCancelled else { return }
-                        await applyScheduleChange()
-                    }
-                }
+                NotificationTimePicker(draft: timeDraft)
             }
 
             Section("Ciclo de perguntas") {
@@ -57,11 +55,21 @@ struct DailyQuestionSettingsView: View {
 
             Section("Notificações") {
                 LabeledContent("Permissão") {
-                    Text(statusLabel)
-                        .foregroundStyle(statusColor)
+                    if let authorizationStatus {
+                        Text(statusLabel(for: authorizationStatus))
+                            .foregroundStyle(statusColor(for: authorizationStatus))
+                    } else {
+                        ProgressView()
+                            .controlSize(.small)
+                    }
                 }
                 LabeledContent("Agendadas (futuras)") {
-                    Text("\(pendingCount)")
+                    if let pendingCount {
+                        Text("\(pendingCount)")
+                    } else {
+                        Text("—")
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
                 if authorizationStatus == .denied {
@@ -73,9 +81,9 @@ struct DailyQuestionSettingsView: View {
                     Button("Ativar notificações") {
                         Task { await requestAndSchedule() }
                     }
-                } else {
+                } else if authorizationStatus != nil {
                     Button("Atualizar agendamento") {
-                        Task { await refresh() }
+                        Task { await saveAndRefreshSchedule() }
                     }
                 }
             }
@@ -96,11 +104,18 @@ struct DailyQuestionSettingsView: View {
             }
         }
         .animation(.easeInOut(duration: 0.25), value: toastMessage)
-        .task { await reloadStatus() }
+        .task(priority: .background) {
+            authorizationStatus = await DailyQuestionNotificationService.authorizationStatus()
+        }
+        .task(priority: .background) {
+            try? await Task.sleep(for: .seconds(4))
+            guard !Task.isCancelled else { return }
+            await reloadHeavyStatus()
+        }
     }
 
-    private var statusLabel: String {
-        switch authorizationStatus {
+    private func statusLabel(for status: UNAuthorizationStatus) -> String {
+        switch status {
         case .authorized: "Ativada"
         case .provisional: "Provisória"
         case .denied: "Negada"
@@ -110,42 +125,47 @@ struct DailyQuestionSettingsView: View {
         }
     }
 
-    private var statusColor: Color {
-        switch authorizationStatus {
+    private func statusColor(for status: UNAuthorizationStatus) -> Color {
+        switch status {
         case .authorized, .provisional: .green
         case .denied: .red
         default: .secondary
         }
     }
 
-    private func reloadStatus() async {
+    private func reloadHeavyStatus() async {
         await DailyQuestionNotificationService.syncDeliveredNotifications()
-
-        authorizationStatus = await DailyQuestionNotificationService.authorizationStatus()
-        notifiedCount = rotationStore.notifiedInCurrentCycle
-        remainingCount = rotationStore.remainingCount
-        notificationTime = NotificationSchedulePreferences.scheduledTime
 
         let pending = await withCheckedContinuation { continuation in
             UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-                let count = requests.filter { $0.identifier.hasPrefix(DailyQuestionNotificationService.notificationPrefix) }.count
+                let count = requests.filter {
+                    $0.identifier.hasPrefix(DailyQuestionNotificationService.notificationPrefix)
+                }.count
                 continuation.resume(returning: count)
             }
         }
-        pendingCount = pending
+
+        await MainActor.run {
+            pendingCount = pending
+            notifiedCount = rotationStore.notifiedInCurrentCycle
+            remainingCount = rotationStore.remainingCount
+        }
     }
 
     private func requestAndSchedule() async {
         let granted = await DailyQuestionNotificationService.requestAuthorization()
-        if granted {
-            await DailyQuestionNotificationService.refreshSchedule(dataStore: store)
+        await MainActor.run {
+            authorizationStatus = granted ? .authorized : .denied
         }
-        await reloadStatus()
+        guard granted else { return }
+
+        await saveAndRefreshSchedule()
     }
 
-    private func refresh() async {
-        await DailyQuestionNotificationService.refreshSchedule(dataStore: store)
-        await reloadStatus()
+    private func saveAndRefreshSchedule() async {
+        NotificationSchedulePreferences.scheduledTime = timeDraft.pickerTime
+        await DailyQuestionNotificationService.rescheduleAfterPreferenceChange(dataStore: store)
+        await reloadHeavyStatus()
         showToast("Agendamento atualizado")
     }
 
@@ -162,16 +182,45 @@ struct DailyQuestionSettingsView: View {
             }
         }
     }
+}
 
-    private func applyScheduleChange() async {
-        let status = await DailyQuestionNotificationService.authorizationStatus()
-        guard status == .authorized || status == .provisional else {
-            await reloadStatus()
-            return
+private struct NotificationTimeDescription: View {
+    @Bindable var draft: NotificationTimeDraft
+
+    var body: some View {
+        Label {
+            Text("Todos os dias às \(draft.formattedPreview) você recebe uma pergunta aleatória do livro.")
+        } icon: {
+            Image(systemName: "bell.badge")
+                .foregroundStyle(.orange)
         }
+    }
+}
 
-        await DailyQuestionNotificationService.rescheduleAfterPreferenceChange(dataStore: store)
-        await reloadStatus()
-        scheduleUpdateTask = nil
+private struct NotificationTimePicker: View {
+    let draft: NotificationTimeDraft
+    @State private var pickerTime: Date
+
+    init(draft: NotificationTimeDraft) {
+        self.draft = draft
+        _pickerTime = State(initialValue: draft.pickerTime)
+    }
+
+    var body: some View {
+        DatePicker(
+            "Receber às",
+            selection: $pickerTime,
+            displayedComponents: .hourAndMinute
+        )
+        .transaction { transaction in
+            transaction.animation = nil
+        }
+        .onChange(of: pickerTime) { _, newValue in
+            draft.setPickerTime(newValue)
+        }
+        .onChange(of: draft.pickerTime) { _, newValue in
+            guard pickerTime != newValue else { return }
+            pickerTime = newValue
+        }
     }
 }
