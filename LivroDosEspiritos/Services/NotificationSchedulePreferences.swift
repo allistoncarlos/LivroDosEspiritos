@@ -37,12 +37,16 @@ enum NotificationSchedulePreferences {
         }
     }
 
-    static var formattedTime: String {
+    static func formattedTime(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
         formatter.dateStyle = .none
         formatter.timeStyle = .short
-        return formatter.string(from: scheduledTime)
+        return formatter.string(from: date)
+    }
+
+    static var formattedTime: String {
+        formattedTime(from: scheduledTime)
     }
 
     private static func calendarDate(from hour: Int, minute: Int) -> Date {

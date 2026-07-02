@@ -1,10 +1,11 @@
 import SwiftUI
+import UIKit
 
 struct MainTabView: View {
     @Environment(BookDataStore.self) private var store
-    @Environment(NotificationHandler.self) private var notificationHandler
     @State private var selectedTab = 0
     @State private var chaptersNavigationPath = NavigationPath()
+    @State private var isPresentingPendingQuestion = false
 
     var body: some View {
         Group {
@@ -12,6 +13,15 @@ struct MainTabView: View {
                 TabView(selection: $selectedTab) {
                     NavigationStack(path: $chaptersNavigationPath) {
                         PartListView(book: book)
+                            .navigationDestination(for: BookPart.self) { part in
+                                ChapterListView(part: part)
+                            }
+                            .navigationDestination(for: BookChapter.self) { chapter in
+                                ChapterDetailView(chapter: chapter)
+                            }
+                            .navigationDestination(for: Question.self) { question in
+                                QuestionDetailView(question: question)
+                            }
                     }
                     .tabItem {
                         Label("Capítulos", systemImage: "books.vertical")
@@ -44,29 +54,36 @@ struct MainTabView: View {
                 ProgressView("Carregando…")
             }
         }
-        .onChange(of: notificationHandler.pendingQuestionNumber) { _, number in
-            openQuestionFromNotification(number: number)
+        .onAppear {
+            presentPendingQuestionIfNeeded()
         }
         .onChange(of: store.book?.title) { _, _ in
-            openQuestionFromNotification(number: notificationHandler.pendingQuestionNumber)
+            presentPendingQuestionIfNeeded()
         }
-        .onAppear {
-            openQuestionFromNotification(number: notificationHandler.pendingQuestionNumber)
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            presentPendingQuestionIfNeeded()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .openPendingQuestion)) { _ in
+            presentPendingQuestionIfNeeded()
         }
     }
 
-    private func openQuestionFromNotification(number: Int?) {
-        guard let number,
-              let context = store.navigationContext(for: number) else {
-            return
-        }
+    private func presentPendingQuestionIfNeeded() {
+        guard store.book != nil, !isPresentingPendingQuestion else { return }
 
-        selectedTab = 0
-        var path = NavigationPath()
-        path.append(context.part)
-        path.append(context.chapter)
-        path.append(context.question)
-        chaptersNavigationPath = path
-        notificationHandler.clearPendingNavigation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            guard !isPresentingPendingQuestion,
+                  let number = PendingQuestionNavigation.peek(),
+                  let question = store.question(number: number) else {
+                return
+            }
+
+            isPresentingPendingQuestion = true
+            PendingQuestionNavigation.consume()
+            selectedTab = 0
+            chaptersNavigationPath = NavigationPath()
+            chaptersNavigationPath.append(question)
+            isPresentingPendingQuestion = false
+        }
     }
 }

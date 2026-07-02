@@ -18,9 +18,6 @@ struct ChapterDetailView: View {
         }
         .navigationTitle("Cap. \(chapter.chapterRoman)")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: Question.self) { question in
-            QuestionDetailView(question: question)
-        }
     }
 }
 

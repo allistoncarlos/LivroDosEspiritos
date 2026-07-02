@@ -3,6 +3,7 @@ import WatchKit
 
 struct QuestionReaderView: View {
     @Environment(BookDataStore.self) private var store
+    @Environment(WatchNotificationHandler.self) private var notificationHandler
     @State private var currentQuestionNumber = WatchLastQuestionStore.lastQuestionNumber
     @State private var showingBrowser = false
 
@@ -42,11 +43,31 @@ struct QuestionReaderView: View {
                 .environment(store)
         }
         .onAppear {
-            currentQuestionNumber = WatchLastQuestionStore.lastQuestionNumber
+            if notificationHandler.pendingQuestionNumber == nil {
+                currentQuestionNumber = WatchLastQuestionStore.lastQuestionNumber
+            }
+            applyPendingNotificationNavigation()
+        }
+        .onChange(of: notificationHandler.pendingQuestionNumber) { _, _ in
+            applyPendingNotificationNavigation()
+        }
+        .onChange(of: store.book?.title) { _, _ in
+            applyPendingNotificationNavigation()
         }
         .onChange(of: currentQuestionNumber) { _, newValue in
             WatchLastQuestionStore.lastQuestionNumber = newValue
         }
+    }
+
+    private func applyPendingNotificationNavigation() {
+        guard let number = notificationHandler.pendingQuestionNumber,
+              store.question(number: number) != nil else {
+            return
+        }
+
+        currentQuestionNumber = number
+        WatchLastQuestionStore.lastQuestionNumber = number
+        notificationHandler.clearPendingNavigation()
     }
 
     private var longPressGesture: some Gesture {

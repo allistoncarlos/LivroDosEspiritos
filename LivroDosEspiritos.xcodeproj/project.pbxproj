@@ -39,9 +39,22 @@
 		W00100012F00000100000001 /* LivroDosEspiritosWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivroDosEspiritosWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B00100102F00000100000001 /* Exceptions for "LivroDosEspiritos" folder in "LivroDosEspiritos" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B00100062F00000100000001 /* LivroDosEspiritos */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B00100022F00000100000001 /* LivroDosEspiritos */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B00100102F00000100000001 /* Exceptions for "LivroDosEspiritos" folder in "LivroDosEspiritos" target */,
+			);
 			path = LivroDosEspiritos;
 			sourceTree = "<group>";
 		};
@@ -272,6 +285,7 @@
 				DEVELOPMENT_TEAM = 56JG4Q8S7U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro dos Espíritos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -301,6 +315,7 @@
 				DEVELOPMENT_TEAM = 56JG4Q8S7U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro dos Espíritos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

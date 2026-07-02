@@ -2,18 +2,20 @@ import SwiftUI
 
 @main
 struct LivroDosEspiritosApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var store = BookDataStore()
-    @State private var notificationHandler = NotificationHandler()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
             MainTabView()
                 .environment(store)
-                .environment(notificationHandler)
                 .task {
-                    notificationHandler.configure()
                     await setupDailyNotifications()
+                }
+                .onOpenURL { url in
+                    guard PendingQuestionNavigation.storeIfValid(url: url) else { return }
+                    NotificationCenter.default.post(name: .openPendingQuestion, object: nil)
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     guard newPhase == .active else { return }

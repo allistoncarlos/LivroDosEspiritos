@@ -25,8 +25,5 @@ struct ChapterListView: View {
             }
         }
         .navigationTitle(part.title)
-        .navigationDestination(for: BookChapter.self) { chapter in
-            ChapterDetailView(chapter: chapter)
-        }
     }
 }

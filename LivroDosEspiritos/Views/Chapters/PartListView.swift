@@ -18,8 +18,5 @@ struct PartListView: View {
         }
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.large)
-        .navigationDestination(for: BookPart.self) { part in
-            ChapterListView(part: part)
-        }
     }
 }

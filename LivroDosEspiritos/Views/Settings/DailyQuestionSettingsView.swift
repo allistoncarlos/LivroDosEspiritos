@@ -8,14 +8,21 @@ struct DailyQuestionSettingsView: View {
     @State private var notifiedCount = 0
     @State private var remainingCount = 1019
     @State private var notificationTime = NotificationSchedulePreferences.scheduledTime
+    @State private var scheduleUpdateTask: Task<Void, Never>?
+    @State private var toastMessage: String?
+    @State private var toastDismissTask: Task<Void, Never>?
 
     private let rotationStore = DailyQuestionRotationStore.shared
+
+    private var formattedNotificationTime: String {
+        NotificationSchedulePreferences.formattedTime(from: notificationTime)
+    }
 
     var body: some View {
         List {
             Section {
                 Label {
-                    Text("Todos os dias às \(NotificationSchedulePreferences.formattedTime) você recebe uma pergunta aleatória do livro.")
+                    Text("Todos os dias às \(formattedNotificationTime) você recebe uma pergunta aleatória do livro.")
                 } icon: {
                     Image(systemName: "bell.badge")
                         .foregroundStyle(.orange)
@@ -30,7 +37,12 @@ struct DailyQuestionSettingsView: View {
                 )
                 .onChange(of: notificationTime) { _, newValue in
                     NotificationSchedulePreferences.scheduledTime = newValue
-                    Task { await applyScheduleChange() }
+                    scheduleUpdateTask?.cancel()
+                    scheduleUpdateTask = Task {
+                        try? await Task.sleep(for: .milliseconds(400))
+                        guard !Task.isCancelled else { return }
+                        await applyScheduleChange()
+                    }
                 }
             }
 
@@ -69,6 +81,21 @@ struct DailyQuestionSettingsView: View {
             }
         }
         .navigationTitle("Notificações")
+        .overlay(alignment: .bottom) {
+            if let toastMessage {
+                Text(toastMessage)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(.regularMaterial, in: Capsule())
+                    .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 12)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: toastMessage)
         .task { await reloadStatus() }
     }
 
@@ -119,6 +146,21 @@ struct DailyQuestionSettingsView: View {
     private func refresh() async {
         await DailyQuestionNotificationService.refreshSchedule(dataStore: store)
         await reloadStatus()
+        showToast("Agendamento atualizado")
+    }
+
+    private func showToast(_ message: String) {
+        toastMessage = message
+        toastDismissTask?.cancel()
+        toastDismissTask = Task {
+            try? await Task.sleep(for: .seconds(2.5))
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                if toastMessage == message {
+                    toastMessage = nil
+                }
+            }
+        }
     }
 
     private func applyScheduleChange() async {
@@ -130,5 +172,6 @@ struct DailyQuestionSettingsView: View {
 
         await DailyQuestionNotificationService.rescheduleAfterPreferenceChange(dataStore: store)
         await reloadStatus()
+        scheduleUpdateTask = nil
     }
 }

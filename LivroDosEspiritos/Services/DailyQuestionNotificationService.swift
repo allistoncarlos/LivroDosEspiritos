@@ -100,10 +100,18 @@ enum DailyQuestionNotificationService {
     }
 
     static func registerDelivery(from notification: UNNotification) {
-        guard notification.request.identifier.hasPrefix(notificationPrefix),
-              let number = notification.request.content.userInfo[questionNumberKey] as? Int else {
+        guard notification.request.identifier.hasPrefix(notificationPrefix) else {
             return
         }
+
+        let userInfo = notification.request.content.userInfo
+        let number: Int? = {
+            if let value = userInfo[questionNumberKey] as? Int { return value }
+            if let value = userInfo[questionNumberKey] as? NSNumber { return value.intValue }
+            return nil
+        }()
+
+        guard let number else { return }
         DailyQuestionRotationStore.shared.markAsNotified(number)
     }
 
@@ -115,7 +123,10 @@ enum DailyQuestionNotificationService {
         content.subtitle = question.chapterTitle
         content.body = truncated(question.question, limit: 180)
         content.sound = .default
-        content.userInfo = [questionNumberKey: question.number]
+        content.userInfo = [
+            questionNumberKey: question.number,
+            "deepLink": QuestionDeepLinkURL.question(question.number).absoluteString
+        ]
         return content
     }
 

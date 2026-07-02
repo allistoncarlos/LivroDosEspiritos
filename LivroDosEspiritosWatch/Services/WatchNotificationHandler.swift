@@ -3,7 +3,9 @@ import Observation
 import UserNotifications
 
 @Observable
-final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
+final class WatchNotificationHandler: NSObject, UNUserNotificationCenterDelegate {
+    static let questionNumberKey = "questionNumber"
+
     var pendingQuestionNumber: Int?
 
     override init() {
@@ -19,27 +21,19 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         pendingQuestionNumber = nil
     }
 
-    // MARK: - UNUserNotificationCenterDelegate
-
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
-        DailyQuestionNotificationService.registerDelivery(from: notification)
-        return [.banner, .sound]
+        [.banner, .sound]
     }
 
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse
     ) async {
-        let notification = response.notification
-        DailyQuestionNotificationService.registerDelivery(from: notification)
-
-        let userInfo = notification.request.content.userInfo
-        guard let number = questionNumber(from: userInfo) else {
-            return
-        }
+        let userInfo = response.notification.request.content.userInfo
+        guard let number = questionNumber(from: userInfo) else { return }
 
         await MainActor.run {
             pendingQuestionNumber = number
@@ -47,11 +41,10 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     }
 
     private func questionNumber(from userInfo: [AnyHashable: Any]) -> Int? {
-        let key = DailyQuestionNotificationService.questionNumberKey
-        if let number = userInfo[key] as? Int {
+        if let number = userInfo[Self.questionNumberKey] as? Int {
             return number
         }
-        if let number = userInfo[key] as? NSNumber {
+        if let number = userInfo[Self.questionNumberKey] as? NSNumber {
             return number.intValue
         }
         return nil
