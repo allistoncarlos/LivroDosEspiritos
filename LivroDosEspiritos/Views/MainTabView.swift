@@ -3,18 +3,20 @@ import SwiftUI
 struct MainTabView: View {
     @Environment(BookDataStore.self) private var store
     @Environment(NotificationHandler.self) private var notificationHandler
-    @State private var presentedQuestion: Question?
+    @State private var selectedTab = 0
+    @State private var chaptersNavigationPath = NavigationPath()
 
     var body: some View {
         Group {
             if let book = store.book {
-                TabView {
-                    NavigationStack {
+                TabView(selection: $selectedTab) {
+                    NavigationStack(path: $chaptersNavigationPath) {
                         PartListView(book: book)
                     }
                     .tabItem {
                         Label("Capítulos", systemImage: "books.vertical")
                     }
+                    .tag(0)
 
                     NavigationStack {
                         SearchView()
@@ -22,6 +24,7 @@ struct MainTabView: View {
                     .tabItem {
                         Label("Busca", systemImage: "magnifyingglass")
                     }
+                    .tag(1)
 
                     NavigationStack {
                         DailyQuestionSettingsView()
@@ -29,6 +32,7 @@ struct MainTabView: View {
                     .tabItem {
                         Label("Notificações", systemImage: "bell")
                     }
+                    .tag(2)
                 }
             } else if let error = store.loadError {
                 ContentUnavailableView(
@@ -40,29 +44,29 @@ struct MainTabView: View {
                 ProgressView("Carregando…")
             }
         }
-        .sheet(item: $presentedQuestion) { question in
-            NavigationStack {
-                QuestionDetailView(question: question)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Fechar") {
-                                presentedQuestion = nil
-                                notificationHandler.clearPendingNavigation()
-                            }
-                        }
-                    }
-            }
-        }
         .onChange(of: notificationHandler.pendingQuestionNumber) { _, number in
-            openQuestion(number: number)
+            openQuestionFromNotification(number: number)
+        }
+        .onChange(of: store.book?.title) { _, _ in
+            openQuestionFromNotification(number: notificationHandler.pendingQuestionNumber)
         }
         .onAppear {
-            openQuestion(number: notificationHandler.pendingQuestionNumber)
+            openQuestionFromNotification(number: notificationHandler.pendingQuestionNumber)
         }
     }
 
-    private func openQuestion(number: Int?) {
-        guard let number, let question = store.question(number: number) else { return }
-        presentedQuestion = question
+    private func openQuestionFromNotification(number: Int?) {
+        guard let number,
+              let context = store.navigationContext(for: number) else {
+            return
+        }
+
+        selectedTab = 0
+        var path = NavigationPath()
+        path.append(context.part)
+        path.append(context.chapter)
+        path.append(context.question)
+        chaptersNavigationPath = path
+        notificationHandler.clearPendingNavigation()
     }
 }

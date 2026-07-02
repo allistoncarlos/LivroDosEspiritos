@@ -32,6 +32,23 @@ final class BookDataStore {
         questionsByNumber[number]
     }
 
+    struct QuestionNavigationContext: Hashable {
+        let part: BookPart
+        let chapter: BookChapter
+        let question: Question
+    }
+
+    func navigationContext(for questionNumber: Int) -> QuestionNavigationContext? {
+        guard let question = question(number: questionNumber),
+              let book,
+              let part = book.parts.first(where: { $0.number == question.partNumber }),
+              let chapter = part.chapters.first(where: { $0.id == question.chapterId }) else {
+            return nil
+        }
+
+        return QuestionNavigationContext(part: part, chapter: chapter, question: question)
+    }
+
     func questions(for chapter: BookChapter) -> [Question] {
         guard let book else { return [] }
         return book.questions.filter { $0.chapterId == chapter.id }
