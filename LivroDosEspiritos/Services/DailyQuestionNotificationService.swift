@@ -3,8 +3,6 @@ import UserNotifications
 
 enum DailyQuestionNotificationService {
     static let notificationPrefix = "daily-question"
-    static let hour = 19
-    static let minute = 30
     static let daysToSchedule = 30
     static let questionNumberKey = "questionNumber"
 
@@ -22,10 +20,22 @@ enum DailyQuestionNotificationService {
     }
 
     static func refreshSchedule(dataStore: BookDataStore) async {
+        await reschedule(dataStore: dataStore, replacingPending: false)
+    }
+
+    static func rescheduleAfterPreferenceChange(dataStore: BookDataStore) async {
+        await reschedule(dataStore: dataStore, replacingPending: true)
+    }
+
+    private static func reschedule(dataStore: BookDataStore, replacingPending: Bool) async {
         let center = UNUserNotificationCenter.current()
         let settings = await center.notificationSettings()
         guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else {
             return
+        }
+
+        if replacingPending {
+            await removeAllScheduled()
         }
 
         let store = DailyQuestionRotationStore.shared
@@ -116,8 +126,8 @@ enum DailyQuestionNotificationService {
 
     private static func nextFireDate(from date: Date, calendar: Calendar) -> Date {
         var components = calendar.dateComponents([.year, .month, .day], from: date)
-        components.hour = hour
-        components.minute = minute
+        components.hour = NotificationSchedulePreferences.hour
+        components.minute = NotificationSchedulePreferences.minute
         components.second = 0
 
         guard let candidate = calendar.date(from: components) else {

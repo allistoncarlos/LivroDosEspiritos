@@ -7,6 +7,7 @@ struct DailyQuestionSettingsView: View {
     @State private var pendingCount = 0
     @State private var notifiedCount = 0
     @State private var remainingCount = 1019
+    @State private var notificationTime = NotificationSchedulePreferences.scheduledTime
 
     private let rotationStore = DailyQuestionRotationStore.shared
 
@@ -14,10 +15,22 @@ struct DailyQuestionSettingsView: View {
         List {
             Section {
                 Label {
-                    Text("Todos os dias às 19:30 você recebe uma pergunta aleatória do livro.")
+                    Text("Todos os dias às \(NotificationSchedulePreferences.formattedTime) você recebe uma pergunta aleatória do livro.")
                 } icon: {
                     Image(systemName: "bell.badge")
                         .foregroundStyle(.orange)
+                }
+            }
+
+            Section("Horário") {
+                DatePicker(
+                    "Receber às",
+                    selection: $notificationTime,
+                    displayedComponents: .hourAndMinute
+                )
+                .onChange(of: notificationTime) { _, newValue in
+                    NotificationSchedulePreferences.scheduledTime = newValue
+                    Task { await applyScheduleChange() }
                 }
             }
 
@@ -84,6 +97,7 @@ struct DailyQuestionSettingsView: View {
         authorizationStatus = await DailyQuestionNotificationService.authorizationStatus()
         notifiedCount = rotationStore.notifiedInCurrentCycle
         remainingCount = rotationStore.remainingCount
+        notificationTime = NotificationSchedulePreferences.scheduledTime
 
         let pending = await withCheckedContinuation { continuation in
             UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
@@ -104,6 +118,17 @@ struct DailyQuestionSettingsView: View {
 
     private func refresh() async {
         await DailyQuestionNotificationService.refreshSchedule(dataStore: store)
+        await reloadStatus()
+    }
+
+    private func applyScheduleChange() async {
+        let status = await DailyQuestionNotificationService.authorizationStatus()
+        guard status == .authorized || status == .provisional else {
+            await reloadStatus()
+            return
+        }
+
+        await DailyQuestionNotificationService.rescheduleAfterPreferenceChange(dataStore: store)
         await reloadStatus()
     }
 }
