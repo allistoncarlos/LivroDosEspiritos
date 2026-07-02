@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
+		W00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
 		W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		B00100012F00000100000001 /* LivroDosEspiritos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivroDosEspiritos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00100162F00000100000001 /* LivroDosEspiritos.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = LivroDosEspiritos.icon; sourceTree = "<group>"; };
 		W00100012F00000100000001 /* LivroDosEspiritosWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivroDosEspiritosWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -86,6 +89,7 @@
 		B00100042F00000100000001 = {
 			isa = PBXGroup;
 			children = (
+				B00100162F00000100000001 /* LivroDosEspiritos.icon */,
 				B00100022F00000100000001 /* LivroDosEspiritos */,
 				W00100022F00000100000001 /* LivroDosEspiritosWatch */,
 				B00100052F00000100000001 /* Products */,
@@ -194,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				W00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +284,7 @@
 		B001000E2F00000100000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = LivroDosEspiritos;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -308,7 +314,7 @@
 		B001000F2F00000100000001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = LivroDosEspiritos;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -338,7 +344,7 @@
 		W001000C2F00000100000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = LivroDosEspiritos;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -367,7 +373,7 @@
 		W001000D2F00000100000001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = LivroDosEspiritos;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
