@@ -3,16 +3,16 @@ import UserNotifications
 
 @main
 struct LivroDosEspiritosWatchApp: App {
+    @WKApplicationDelegateAdaptor(WatchAppDelegate.self) private var appDelegate
     @State private var store = BookDataStore()
-    @State private var notificationHandler = WatchNotificationHandler()
 
     var body: some Scene {
         WindowGroup {
             QuestionReaderView()
                 .environment(store)
-                .environment(notificationHandler)
+                .environment(WatchNotificationHandler.shared)
                 .task {
-                    notificationHandler.configure()
+                    WatchNotificationHandler.shared.configure()
                     let center = UNUserNotificationCenter.current()
                     let settings = await center.notificationSettings()
                     if settings.authorizationStatus == .notDetermined {

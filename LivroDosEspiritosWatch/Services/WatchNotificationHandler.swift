@@ -3,50 +3,55 @@ import Observation
 import UserNotifications
 
 @Observable
+@MainActor
 final class WatchNotificationHandler: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = WatchNotificationHandler()
     static let questionNumberKey = "questionNumber"
 
     var pendingQuestionNumber: Int?
 
-    override init() {
+    private override init() {
         super.init()
         UNUserNotificationCenter.current().delegate = self
+        pendingQuestionNumber = WatchPendingQuestionNavigation.peek()
     }
 
     func configure() {
         UNUserNotificationCenter.current().delegate = self
+        if pendingQuestionNumber == nil {
+            pendingQuestionNumber = WatchPendingQuestionNavigation.peek()
+        }
     }
 
     func clearPendingNavigation() {
         pendingQuestionNumber = nil
+        _ = WatchPendingQuestionNavigation.consume()
     }
 
-    func userNotificationCenter(
+    nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification
-    ) async -> UNNotificationPresentationOptions {
-        [.banner, .sound]
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
     }
 
-    func userNotificationCenter(
+    nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse
-    ) async {
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
         let userInfo = response.notification.request.content.userInfo
-        guard let number = questionNumber(from: userInfo) else { return }
+        guard let number = WatchPendingQuestionNavigation.questionNumber(from: userInfo) else {
+            completionHandler()
+            return
+        }
 
-        await MainActor.run {
-            pendingQuestionNumber = number
-        }
-    }
+        WatchPendingQuestionNavigation.store(questionNumber: number)
 
-    private func questionNumber(from userInfo: [AnyHashable: Any]) -> Int? {
-        if let number = userInfo[Self.questionNumberKey] as? Int {
-            return number
+        Task { @MainActor in
+            self.pendingQuestionNumber = number
+            completionHandler()
         }
-        if let number = userInfo[Self.questionNumberKey] as? NSNumber {
-            return number.intValue
-        }
-        return nil
     }
 }

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
-		W00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
 		W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		W00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

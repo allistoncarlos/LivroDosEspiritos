@@ -4,6 +4,7 @@ import WatchKit
 struct QuestionReaderView: View {
     @Environment(BookDataStore.self) private var store
     @Environment(WatchNotificationHandler.self) private var notificationHandler
+    @Environment(\.scenePhase) private var scenePhase
     @State private var currentQuestionNumber = WatchLastQuestionStore.lastQuestionNumber
     @State private var showingBrowser = false
 
@@ -43,9 +44,6 @@ struct QuestionReaderView: View {
                 .environment(store)
         }
         .onAppear {
-            if notificationHandler.pendingQuestionNumber == nil {
-                currentQuestionNumber = WatchLastQuestionStore.lastQuestionNumber
-            }
             applyPendingNotificationNavigation()
         }
         .onChange(of: notificationHandler.pendingQuestionNumber) { _, _ in
@@ -54,20 +52,39 @@ struct QuestionReaderView: View {
         .onChange(of: store.book?.title) { _, _ in
             applyPendingNotificationNavigation()
         }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            applyPendingNotificationNavigation()
+        }
         .onChange(of: currentQuestionNumber) { _, newValue in
             WatchLastQuestionStore.lastQuestionNumber = newValue
         }
     }
 
     private func applyPendingNotificationNavigation() {
-        guard let number = notificationHandler.pendingQuestionNumber,
+        let number = notificationHandler.pendingQuestionNumber
+            ?? WatchPendingQuestionNavigation.peek()
+
+        guard let number,
               store.question(number: number) != nil else {
             return
         }
 
-        currentQuestionNumber = number
-        WatchLastQuestionStore.lastQuestionNumber = number
-        notificationHandler.clearPendingNavigation()
+        // Aguarda o WatchKit concluir a ativação da cena na main thread.
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(150))
+
+            let stillPending = notificationHandler.pendingQuestionNumber
+                ?? WatchPendingQuestionNavigation.peek()
+            guard stillPending == number,
+                  store.question(number: number) != nil else {
+                return
+            }
+
+            currentQuestionNumber = number
+            WatchLastQuestionStore.lastQuestionNumber = number
+            notificationHandler.clearPendingNavigation()
+        }
     }
 
     private var longPressGesture: some Gesture {
