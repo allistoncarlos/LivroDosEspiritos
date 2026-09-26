@@ -40,7 +40,7 @@ struct MainTabView: View {
                         DailyQuestionSettingsView()
                     }
                     .tabItem {
-                        Label("Notificações", systemImage: "bell")
+                        Label("Ajustes", systemImage: "gearshape")
                     }
                     .tag(2)
                 }

@@ -87,8 +87,10 @@ struct DailyQuestionSettingsView: View {
                     }
                 }
             }
+
+            AboutBrandSection()
         }
-        .navigationTitle("Notificações")
+        .navigationTitle("Ajustes")
         .overlay(alignment: .bottom) {
             if let toastMessage {
                 Text(toastMessage)
