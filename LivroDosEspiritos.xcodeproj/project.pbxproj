@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76ACC6C584BAAC6F5021D42D /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 72DBEA2C6696916BAE26B51A /* AmplitudeSwift */; };
 		B00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
 		W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		W00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
@@ -63,6 +64,8 @@
 		};
 		W00100022F00000100000001 /* LivroDosEspiritosWatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = LivroDosEspiritosWatch;
 			sourceTree = "<group>";
 		};
@@ -73,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76ACC6C584BAAC6F5021D42D /* AmplitudeSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,7 @@
 			);
 			name = LivroDosEspiritos;
 			packageProductDependencies = (
+				72DBEA2C6696916BAE26B51A /* AmplitudeSwift */,
 			);
 			productName = LivroDosEspiritos;
 			productReference = B00100012F00000100000001 /* LivroDosEspiritos.app */;
@@ -148,8 +153,6 @@
 				W00100022F00000100000001 /* LivroDosEspiritosWatch */,
 			);
 			name = LivroDosEspiritosWatch;
-			packageProductDependencies = (
-			);
 			productName = LivroDosEspiritosWatch;
 			productReference = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +185,9 @@
 			);
 			mainGroup = B00100042F00000100000001;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B00100052F00000100000001 /* Products */;
 			projectDirPath = "";
@@ -431,6 +437,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.19.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		72DBEA2C6696916BAE26B51A /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B00100092F00000100000001 /* Project object */;
 }
