@@ -25,6 +25,13 @@ struct QuestionDetailView: View {
         }
         .navigationTitle("Pergunta \(question.number)")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            AnalyticsService.track(AnalyticsEvent.perguntaVisualizada, properties: [
+                "pergunta_numero": question.number,
+                "capitulo_numero": question.chapterNumber,
+                "parte_titulo": question.partTitle
+            ])
+        }
     }
 
     private var header: some View {

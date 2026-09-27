@@ -35,6 +35,18 @@ struct SearchView: View {
         .navigationDestination(for: Question.self) { question in
             QuestionDetailView(question: question)
         }
+        .task(id: query) {
+            let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else { return }
+
+            try? await Task.sleep(for: .milliseconds(600))
+            guard !Task.isCancelled else { return }
+
+            AnalyticsService.track(AnalyticsEvent.buscaRealizada, properties: [
+                "tamanho_termo": trimmed.count,
+                "resultados": results.count
+            ])
+        }
     }
 }
 

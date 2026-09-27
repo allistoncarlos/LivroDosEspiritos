@@ -161,14 +161,21 @@ struct DailyQuestionSettingsView: View {
         }
         guard granted else { return }
 
-        await saveAndRefreshSchedule()
+        await saveAndRefreshSchedule(origin: "ativacao")
     }
 
-    private func saveAndRefreshSchedule() async {
+    private func saveAndRefreshSchedule(origin: String = "atualizacao") async {
         NotificationSchedulePreferences.scheduledTime = timeDraft.pickerTime
         await DailyQuestionNotificationService.rescheduleAfterPreferenceChange(dataStore: store)
         await reloadHeavyStatus()
         showToast("Agendamento atualizado")
+
+        let components = Calendar.current.dateComponents([.hour, .minute], from: timeDraft.pickerTime)
+        AnalyticsService.track(AnalyticsEvent.notificacaoDiariaConfigurada, properties: [
+            "origem": origin,
+            "hora": components.hour ?? -1,
+            "minuto": components.minute ?? -1
+        ])
     }
 
     private func showToast(_ message: String) {

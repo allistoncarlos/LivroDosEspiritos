@@ -25,5 +25,12 @@ struct ChapterListView: View {
             }
         }
         .navigationTitle(part.title)
+        .onAppear {
+            AnalyticsService.track(AnalyticsEvent.parteVisualizada, properties: [
+                "parte_numero": part.number,
+                "parte_titulo": part.title,
+                "capitulos": part.chapters.count
+            ])
+        }
     }
 }

@@ -28,6 +28,12 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
 
         DailyQuestionNotificationService.registerDelivery(from: notification)
 
+        if let number = PendingQuestionNavigation.questionNumber(from: userInfo) {
+            AnalyticsService.track(AnalyticsEvent.notificacaoDiariaAberta, properties: [
+                "pergunta_numero": number
+            ])
+        }
+
         if let urlString = userInfo["deepLink"] as? String,
            let url = URL(string: urlString),
            PendingQuestionNavigation.storeIfValid(url: url) {

@@ -18,6 +18,13 @@ struct ChapterDetailView: View {
         }
         .navigationTitle("Cap. \(chapter.chapterRoman)")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            AnalyticsService.track(AnalyticsEvent.capituloVisualizado, properties: [
+                "parte_titulo": chapter.partTitle,
+                "capitulo_numero": chapter.chapterNumber,
+                "capitulo_titulo": chapter.title
+            ])
+        }
     }
 }
 

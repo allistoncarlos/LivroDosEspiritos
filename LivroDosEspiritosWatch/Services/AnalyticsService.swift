@@ -2,13 +2,7 @@ import AmplitudeSwift
 import Foundation
 
 enum AnalyticsEvent {
-    static let parteVisualizada = "Parte Visualizada"
-    static let capituloVisualizado = "Capítulo Visualizado"
     static let perguntaVisualizada = "Pergunta Visualizada"
-    static let buscaRealizada = "Busca Realizada"
-    static let notificacaoDiariaConfigurada = "Notificação Diária Configurada"
-    static let notificacaoDiariaAberta = "Notificação Diária Aberta"
-    static let linkDeContatoClicado = "Link de Contato Clicado"
 }
 
 enum AnalyticsService {

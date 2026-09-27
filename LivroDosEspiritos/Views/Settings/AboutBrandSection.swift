@@ -90,9 +90,15 @@ struct AboutBrandSection: View {
             Link(destination: URL(string: "mailto:alliston@outlook.com")!) {
                 Label("alliston@outlook.com", systemImage: "envelope.fill")
             }
+            .simultaneousGesture(TapGesture().onEnded {
+                AnalyticsService.track(AnalyticsEvent.linkDeContatoClicado, properties: ["canal": "email"])
+            })
             Link(destination: URL(string: "https://instagram.com/alliston.tech")!) {
                 Label("@alliston.tech", systemImage: "at")
             }
+            .simultaneousGesture(TapGesture().onEnded {
+                AnalyticsService.track(AnalyticsEvent.linkDeContatoClicado, properties: ["canal": "instagram"])
+            })
         } header: {
             Text("Vamos conversar?")
         } footer: {

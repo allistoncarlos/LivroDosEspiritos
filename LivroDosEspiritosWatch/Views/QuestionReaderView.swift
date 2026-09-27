@@ -45,6 +45,7 @@ struct QuestionReaderView: View {
         }
         .onAppear {
             applyPendingNotificationNavigation()
+            trackQuestionViewed(currentQuestionNumber)
         }
         .onChange(of: notificationHandler.pendingQuestionNumber) { _, _ in
             applyPendingNotificationNavigation()
@@ -58,7 +59,17 @@ struct QuestionReaderView: View {
         }
         .onChange(of: currentQuestionNumber) { _, newValue in
             WatchLastQuestionStore.lastQuestionNumber = newValue
+            trackQuestionViewed(newValue)
         }
+    }
+
+    private func trackQuestionViewed(_ number: Int) {
+        guard let question = store.question(number: number) else { return }
+        AnalyticsService.track(AnalyticsEvent.perguntaVisualizada, properties: [
+            "pergunta_numero": question.number,
+            "capitulo_numero": question.chapterNumber,
+            "parte_titulo": question.partTitle
+        ])
     }
 
     private func applyPendingNotificationNavigation() {

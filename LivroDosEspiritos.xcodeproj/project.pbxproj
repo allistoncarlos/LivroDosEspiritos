@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		254B95885B8C1E0CCAFCA0AC /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D2CD9560B96266CA36982918 /* AmplitudeSwift */; };
 		76ACC6C584BAAC6F5021D42D /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 72DBEA2C6696916BAE26B51A /* AmplitudeSwift */; };
 		B00100152F00000100000001 /* LivroDosEspiritos.icon in Resources */ = {isa = PBXBuildFile; fileRef = B00100162F00000100000001 /* LivroDosEspiritos.icon */; };
 		W00100112F00000100000001 /* LivroDosEspiritosWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -84,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254B95885B8C1E0CCAFCA0AC /* AmplitudeSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +155,9 @@
 				W00100022F00000100000001 /* LivroDosEspiritosWatch */,
 			);
 			name = LivroDosEspiritosWatch;
+			packageProductDependencies = (
+				D2CD9560B96266CA36982918 /* AmplitudeSwift */,
+			);
 			productName = LivroDosEspiritosWatch;
 			productReference = W00100012F00000100000001 /* LivroDosEspiritosWatch.app */;
 			productType = "com.apple.product-type.application";
@@ -451,6 +456,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		72DBEA2C6696916BAE26B51A /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		D2CD9560B96266CA36982918 /* AmplitudeSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
 			productName = AmplitudeSwift;
