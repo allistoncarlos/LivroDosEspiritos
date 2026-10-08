@@ -306,6 +306,7 @@
 				DEVELOPMENT_TEAM = DLA5J5JEZ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro Espíritos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -336,6 +337,7 @@
 				DEVELOPMENT_TEAM = DLA5J5JEZ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro Espíritos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
