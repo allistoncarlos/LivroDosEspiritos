@@ -9,11 +9,11 @@ struct QuestionDetailView: View {
                 header
                 questionBlock
 
-                if question.hasAnswer {
+                if question.hasAnswer || question.isSpiritAnswerInCommentary {
                     answerBlock
                 }
 
-                if question.hasCommentary {
+                if question.hasCommentary && !question.isSpiritAnswerInCommentary {
                     commentaryBlock
                 }
 
@@ -52,7 +52,10 @@ struct QuestionDetailView: View {
 
     private var questionBlock: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Pergunta", systemImage: "questionmark.circle")
+            Label(
+                question.isExpository ? "Texto" : "Pergunta",
+                systemImage: question.isExpository ? "text.book.closed" : "questionmark.circle"
+            )
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
             Text(question.question)
@@ -67,7 +70,7 @@ struct QuestionDetailView: View {
             Label("Resposta dos Espíritos", systemImage: "quote.opening")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
-            Text(question.answer)
+            Text(question.hasAnswer ? question.answer : question.commentary)
                 .font(.body)
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)

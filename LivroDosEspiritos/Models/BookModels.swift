@@ -70,6 +70,12 @@ struct Question: Codable, Identifiable, Hashable {
     var hasCommentary: Bool { !commentary.isEmpty }
     var hasNotes: Bool { !notes.isEmpty }
 
+    /// Trecho expositivo do livro (sem pergunta/resposta no formato usual).
+    var isExpository: Bool { !hasAnswer && !hasCommentary && !question.contains("?") }
+
+    /// Resposta dos Espíritos gravada no campo commentary por limitação do JSON fonte.
+    var isSpiritAnswerInCommentary: Bool { !hasAnswer && hasCommentary && question.contains("?") }
+
     var previewText: String {
         if hasAnswer { return answer }
         if hasCommentary { return commentary }
