@@ -14,6 +14,10 @@ struct MainTabView: View {
         case settings
     }
 
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
     var body: some View {
         Group {
             if store.book != nil {
@@ -64,58 +68,97 @@ struct MainTabView: View {
     @ViewBuilder
     private var appTabs: some View {
         if #available(iOS 26.0, *) {
-            TabView(selection: $selectedTab) {
-                Tab("Livro", systemImage: "books.vertical", value: .book) {
-                    bookNavigation
-                }
+            if isPad {
+                TabView(selection: $selectedTab) {
+                    Tab("Livro", systemImage: "books.vertical", value: .book) {
+                        iPadBookSearch
+                    }
 
-                Tab(value: .search, role: .search) {
-                    NavigationStack {
-                        SearchView(
-                            query: $searchText,
-                            installsSearchField: false,
-                            showsCustomEmptyState: false
-                        )
+                    Tab("Ajustes", systemImage: "gearshape", value: .settings) {
+                        NavigationStack {
+                            DailyQuestionSettingsView()
+                        }
                     }
                 }
+            } else {
+                TabView(selection: $selectedTab) {
+                    Tab("Livro", systemImage: "books.vertical", value: .book) {
+                        bookNavigation
+                    }
 
-                Tab("Ajustes", systemImage: "gearshape", value: .settings) {
+                    Tab(value: .search, role: .search) {
+                        NavigationStack {
+                            SearchView(
+                                query: $searchText,
+                                installsSearchField: false,
+                                showsCustomEmptyState: false
+                            )
+                        }
+                    }
+
+                    Tab("Ajustes", systemImage: "gearshape", value: .settings) {
+                        NavigationStack {
+                            DailyQuestionSettingsView()
+                        }
+                    }
+                }
+                .searchable(text: $searchText, prompt: "Pergunta, resposta ou tema")
+                .searchSuggestions {
+                    SearchSuggestionList(query: $searchText)
+                }
+                .tabViewSearchActivation(.searchTabSelection)
+                .modifier(SearchPresentationModifier())
+            }
+        } else {
+            if isPad {
+                TabView(selection: $selectedTab) {
+                    iPadBookSearch
+                        .tabItem {
+                            Label("Livro", systemImage: "books.vertical")
+                        }
+                        .tag(AppTab.book)
+
                     NavigationStack {
                         DailyQuestionSettingsView()
                     }
-                }
-            }
-            .searchable(text: $searchText, prompt: "Pergunta, resposta ou tema")
-            .searchSuggestions {
-                SearchSuggestionList(query: $searchText)
-            }
-            .tabViewSearchActivation(.searchTabSelection)
-            .modifier(SearchPresentationModifier())
-        } else {
-            TabView(selection: $selectedTab) {
-                bookNavigation
                     .tabItem {
-                        Label("Livro", systemImage: "books.vertical")
+                        Label("Ajustes", systemImage: "gearshape")
                     }
-                    .tag(AppTab.book)
+                    .tag(AppTab.settings)
+                }
+            } else {
+                TabView(selection: $selectedTab) {
+                    bookNavigation
+                        .tabItem {
+                            Label("Livro", systemImage: "books.vertical")
+                        }
+                        .tag(AppTab.book)
 
-                NavigationStack {
-                    SearchView(query: $searchText)
-                }
-                .tabItem {
-                    Label("Busca", systemImage: "magnifyingglass")
-                }
-                .tag(AppTab.search)
+                    NavigationStack {
+                        SearchView(query: $searchText)
+                    }
+                    .tabItem {
+                        Label("Busca", systemImage: "magnifyingglass")
+                    }
+                    .tag(AppTab.search)
 
-                NavigationStack {
-                    DailyQuestionSettingsView()
+                    NavigationStack {
+                        DailyQuestionSettingsView()
+                    }
+                    .tabItem {
+                        Label("Ajustes", systemImage: "gearshape")
+                    }
+                    .tag(AppTab.settings)
                 }
-                .tabItem {
-                    Label("Ajustes", systemImage: "gearshape")
-                }
-                .tag(AppTab.settings)
             }
         }
+    }
+
+    private var iPadBookSearch: some View {
+        iPadBookSearchContainer(
+            bookContent: AnyView(bookNavigation),
+            query: $searchText
+        )
     }
 
     private var bookNavigation: some View {
@@ -131,5 +174,40 @@ struct MainTabView: View {
                     QuestionDetailView(question: question)
                 }
         }
+    }
+}
+
+private struct iPadBookSearchContainer: View {
+    let bookContent: AnyView
+    @Binding var query: String
+    @Environment(\.isSearching) private var isSearching
+
+    var body: some View {
+        ZStack {
+            bookContent
+
+            if isSearching || !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                NavigationStack {
+                    SearchView(
+                        query: $query,
+                        installsSearchField: false,
+                        showsCustomEmptyState: true
+                    )
+                }
+                .background(Color(uiColor: .systemBackground))
+                .transition(.opacity)
+            }
+        }
+        .searchable(
+            text: $query,
+            placement: .toolbar,
+            prompt: "Pergunta, resposta ou tema"
+        )
+        .searchSuggestions {
+            SearchSuggestionList(query: $query)
+        }
+        .modifier(SearchPresentationModifier())
+        .animation(.easeInOut(duration: 0.18), value: isSearching)
+        .animation(.easeInOut(duration: 0.18), value: query.isEmpty)
     }
 }

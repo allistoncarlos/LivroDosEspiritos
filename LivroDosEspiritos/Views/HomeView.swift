@@ -59,8 +59,6 @@ struct HomeView: View {
                     NavigationLink(value: dailyQuestion) {
                         VStack(alignment: .leading, spacing: 16) {
                             HStack {
-                                Label("Uma reflexão para hoje", systemImage: "sparkles")
-                                    .font(.subheadline.weight(.semibold))
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
                                     .font(.subheadline.weight(.bold))
@@ -85,26 +83,31 @@ struct HomeView: View {
                     }
                     .buttonStyle(.plain)
 
-                    Menu {
-                        Button {
-                            shareDailyQuestion(to: .stories)
-                        } label: {
-                            Label("Instagram Story", systemImage: "camera.aperture")
-                        }
+                    HStack {
+                        Spacer()
 
-                        Button {
-                            shareDailyQuestion(to: .message)
+                        Menu {
+                            Button {
+                                shareDailyQuestion(to: .stories)
+                            } label: {
+                                Label("Instagram Story", systemImage: "camera.aperture")
+                            }
+
+                            Button {
+                                shareDailyQuestion(to: .message)
+                            } label: {
+                                Label("Mensagem…", systemImage: "message")
+                            }
                         } label: {
-                            Label("Mensagem…", systemImage: "message")
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.headline.weight(.bold))
+                                .frame(width: 44, height: 44)
                         }
-                    } label: {
-                        Label("Compartilhar Pergunta do Dia", systemImage: "square.and.arrow.up")
-                            .font(.subheadline.weight(.bold))
-                            .frame(maxWidth: .infinity)
+                        .accessibilityLabel("Compartilhar Pergunta do Dia")
+                        .buttonStyle(.borderedProminent)
+                        .tint(.accentColor)
+                        .disabled(isPreparingShare)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.accentColor)
-                    .disabled(isPreparingShare)
                 }
                 .padding(20)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -119,16 +122,6 @@ struct HomeView: View {
                 .overlay {
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
                         .stroke(Color.accentColor.opacity(0.3), lineWidth: 1)
-                }
-                .overlay(alignment: .topTrailing) {
-                    Text("DESTAQUE")
-                        .font(.caption2.weight(.black))
-                        .tracking(1.2)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .background(Color.accentColor, in: Capsule())
-                        .offset(x: -16, y: -13)
                 }
                 .padding(.horizontal)
             } else {
