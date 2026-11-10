@@ -90,6 +90,7 @@ struct DailyQuestionSettingsView: View {
 
             AboutBrandSection()
         }
+        .bookTypography()
         .navigationTitle("Ajustes")
         .overlay(alignment: .bottom) {
             if let toastMessage {

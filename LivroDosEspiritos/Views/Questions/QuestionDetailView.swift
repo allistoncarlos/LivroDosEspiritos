@@ -23,6 +23,7 @@ struct QuestionDetailView: View {
             }
             .padding()
         }
+        .bookTypography()
         .navigationTitle("Pergunta \(question.number)")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {

@@ -17,6 +17,7 @@ struct HomeView: View {
             .padding(.top, 8)
             .padding(.bottom)
         }
+        .bookTypography()
         .toolbar(.hidden, for: .navigationBar)
         .task {
             loadDailyQuestion()

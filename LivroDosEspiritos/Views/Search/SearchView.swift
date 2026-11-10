@@ -30,6 +30,7 @@ struct SearchView: View {
                 }
             }
         }
+        .bookTypography()
         .navigationTitle("Busca")
         .searchable(text: $query, prompt: "Pergunta, resposta, tema…")
         .navigationDestination(for: Question.self) { question in

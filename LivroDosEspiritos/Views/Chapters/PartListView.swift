@@ -16,6 +16,7 @@ struct PartListView: View {
                 .padding(.vertical, 4)
             }
         }
+        .bookTypography()
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.large)
     }

@@ -24,6 +24,7 @@ struct ChapterListView: View {
                 .padding(.vertical, 4)
             }
         }
+        .bookTypography()
         .navigationTitle(part.title)
         .onAppear {
             AnalyticsService.track(AnalyticsEvent.parteVisualizada, properties: [

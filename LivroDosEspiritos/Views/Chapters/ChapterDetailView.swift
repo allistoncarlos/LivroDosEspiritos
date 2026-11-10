@@ -16,6 +16,7 @@ struct ChapterDetailView: View {
                 }
             }
         }
+        .bookTypography()
         .navigationTitle("Cap. \(chapter.chapterRoman)")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
