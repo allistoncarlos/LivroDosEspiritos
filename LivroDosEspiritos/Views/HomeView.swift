@@ -89,12 +89,17 @@ struct HomeView: View {
                             shareDailyQuestion()
                         } label: {
                             Image(systemName: "square.and.arrow.up")
-                                .font(.headline.weight(.bold))
-                                .frame(width: 44, height: 44)
+                                .font(.system(size: 21, weight: .semibold))
+                                .frame(width: 52, height: 52)
                         }
                         .accessibilityLabel("Compartilhar Pergunta do Dia")
-                        .buttonStyle(.borderedProminent)
-                        .tint(.accentColor)
+                        .buttonStyle(.plain)
+                        .background(.regularMaterial, in: Circle())
+                        .overlay {
+                            Circle()
+                                .strokeBorder(.white.opacity(0.34), lineWidth: 1)
+                        }
+                        .glassEffect(.regular, in: Circle())
                         .disabled(isPreparingShare)
                     }
                 }
