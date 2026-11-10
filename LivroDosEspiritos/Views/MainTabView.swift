@@ -71,7 +71,13 @@ struct MainTabView: View {
             if isPad {
                 TabView(selection: $selectedTab) {
                     Tab("Livro", systemImage: "books.vertical", value: .book) {
-                        iPadBookSearch
+                        bookNavigation
+                    }
+
+                    Tab("Busca", systemImage: "magnifyingglass", value: .search) {
+                        NavigationStack {
+                            SearchView(query: $searchText)
+                        }
                     }
 
                     Tab("Ajustes", systemImage: "gearshape", value: .settings) {
@@ -112,7 +118,7 @@ struct MainTabView: View {
         } else {
             if isPad {
                 TabView(selection: $selectedTab) {
-                    iPadBookSearch
+                    bookNavigation
                         .tabItem {
                             Label("Livro", systemImage: "books.vertical")
                         }
@@ -154,13 +160,6 @@ struct MainTabView: View {
         }
     }
 
-    private var iPadBookSearch: some View {
-        iPadBookSearchContainer(
-            bookContent: AnyView(bookNavigation),
-            query: $searchText
-        )
-    }
-
     private var bookNavigation: some View {
         NavigationStack(path: $chaptersNavigationPath) {
             HomeView()
@@ -174,40 +173,5 @@ struct MainTabView: View {
                     QuestionDetailView(question: question)
                 }
         }
-    }
-}
-
-private struct iPadBookSearchContainer: View {
-    let bookContent: AnyView
-    @Binding var query: String
-    @Environment(\.isSearching) private var isSearching
-
-    var body: some View {
-        ZStack {
-            bookContent
-
-            if isSearching || !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                NavigationStack {
-                    SearchView(
-                        query: $query,
-                        installsSearchField: false,
-                        showsCustomEmptyState: true
-                    )
-                }
-                .background(Color(uiColor: .systemBackground))
-                .transition(.opacity)
-            }
-        }
-        .searchable(
-            text: $query,
-            placement: .toolbar,
-            prompt: "Pergunta, resposta ou tema"
-        )
-        .searchSuggestions {
-            SearchSuggestionList(query: $query)
-        }
-        .modifier(SearchPresentationModifier())
-        .animation(.easeInOut(duration: 0.18), value: isSearching)
-        .animation(.easeInOut(duration: 0.18), value: query.isEmpty)
     }
 }
