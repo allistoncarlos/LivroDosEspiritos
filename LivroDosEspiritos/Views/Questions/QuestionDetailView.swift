@@ -6,6 +6,11 @@ struct QuestionDetailView: View {
     @State private var isPreparingShare = false
     @State private var shareErrorMessage: String?
 
+    private enum ShareDestination {
+        case stories
+        case message
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -31,8 +36,18 @@ struct QuestionDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    shareToInstagramStories()
+                Menu {
+                    Button {
+                        shareQuestion(to: .stories)
+                    } label: {
+                        Label("Instagram Story", systemImage: "camera.aperture")
+                    }
+
+                    Button {
+                        shareQuestion(to: .message)
+                    } label: {
+                        Label("Mensagem…", systemImage: "message")
+                    }
                 } label: {
                     if isPreparingShare {
                         ProgressView()
@@ -41,7 +56,7 @@ struct QuestionDetailView: View {
                     }
                 }
                 .disabled(isPreparingShare)
-                .accessibilityLabel("Compartilhar no Instagram Stories")
+                .accessibilityLabel("Compartilhar pergunta")
             }
         }
         .alert("Não foi possível compartilhar", isPresented: Binding(
@@ -139,7 +154,7 @@ struct QuestionDetailView: View {
     }
 
     @MainActor
-    private func shareToInstagramStories() {
+    private func shareQuestion(to destination: ShareDestination) {
         guard !isPreparingShare else { return }
         isPreparingShare = true
 
@@ -151,21 +166,36 @@ struct QuestionDetailView: View {
                 return
             }
 
-            let outcome = InstagramStoriesShareService.shareToStories(image: image)
-            switch outcome {
-            case .openedInstagramStories:
+            switch destination {
+            case .stories:
+                let outcome = InstagramStoriesShareService.shareToStories(image: image)
+                switch outcome {
+                case .openedInstagramStories:
+                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                        "pergunta_numero": question.number,
+                        "modo": "stories"
+                    ])
+                case .systemShareFallback:
+                    InstagramStoriesShareService.presentSystemShareSheet(
+                        image: image,
+                        message: InstagramStoriesShareService.message(for: question)
+                    )
+                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                        "pergunta_numero": question.number,
+                        "modo": "sistema"
+                    ])
+                case .failed(let message):
+                    shareErrorMessage = message
+                }
+            case .message:
+                InstagramStoriesShareService.presentSystemShareSheet(
+                    image: image,
+                    message: InstagramStoriesShareService.message(for: question)
+                )
                 AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
                     "pergunta_numero": question.number,
-                    "modo": "stories"
+                    "modo": "mensagem"
                 ])
-            case .systemShareFallback:
-                InstagramStoriesShareService.presentSystemShareSheet(image: image)
-                AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
-                    "pergunta_numero": question.number,
-                    "modo": "sistema"
-                ])
-            case .failed(let message):
-                shareErrorMessage = message
             }
         }
     }

@@ -53,7 +53,7 @@ struct MainTabView: View {
             }
 
             isPresentingPendingQuestion = true
-            PendingQuestionNavigation.consume()
+            _ = PendingQuestionNavigation.consume()
             selectedTab = .book
             chaptersNavigationPath = NavigationPath()
             chaptersNavigationPath.append(question)

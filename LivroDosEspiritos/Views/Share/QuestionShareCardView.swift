@@ -3,6 +3,12 @@ import SwiftUI
 /// Card 9:16 otimizado para Instagram Stories (1080×1920).
 struct QuestionShareCardView: View {
     let question: Question
+    let isDailyQuestion: Bool
+
+    init(question: Question, isDailyQuestion: Bool = false) {
+        self.question = question
+        self.isDailyQuestion = isDailyQuestion
+    }
 
     private enum Palette {
         static let bgTop = Color(red: 0.04, green: 0.07, blue: 0.13)
@@ -94,9 +100,19 @@ struct QuestionShareCardView: View {
                 .tracking(3.2)
                 .foregroundStyle(Palette.gold)
 
-            Text("Pergunta \(question.number)")
-                .font(.system(size: 54, weight: .bold, design: .serif))
+            Text(isDailyQuestion ? "PERGUNTA DO DIA" : "Pergunta \(question.number)")
+                .font(.system(
+                    size: isDailyQuestion ? 58 : 54,
+                    weight: .bold,
+                    design: .serif
+                ))
                 .foregroundStyle(Palette.text)
+
+            if isDailyQuestion {
+                Text("Uma reflexão para hoje")
+                    .font(.system(size: 24, weight: .medium, design: .serif))
+                    .foregroundStyle(Palette.gold)
+            }
 
             Text("Capítulo \(question.chapterNumber) · \(question.chapterTitle)")
                 .font(.system(size: 24, weight: .regular, design: .serif))

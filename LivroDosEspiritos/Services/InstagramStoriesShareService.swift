@@ -36,8 +36,8 @@ enum InstagramStoriesShareService {
     }
 
     @MainActor
-    static func renderShareImage(for question: Question) -> UIImage? {
-        let card = QuestionShareCardView(question: question)
+    static func renderShareImage(for question: Question, isDailyQuestion: Bool = false) -> UIImage? {
+        let card = QuestionShareCardView(question: question, isDailyQuestion: isDailyQuestion)
         let renderer = ImageRenderer(content: card)
         renderer.proposedSize = ProposedViewSize(
             width: QuestionShareCardView.canvasWidth,
@@ -76,7 +76,23 @@ enum InstagramStoriesShareService {
 
     @MainActor
     static func presentSystemShareSheet(image: UIImage) {
-        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        presentSystemShareSheet(image: image, message: nil)
+    }
+
+    /// Abre a folha nativa com a imagem e uma mensagem pronta para enviar.
+    @MainActor
+    static func presentSystemShareSheet(image: UIImage, message: String) {
+        presentSystemShareSheet(image: image, message: Optional(message))
+    }
+
+    @MainActor
+    private static func presentSystemShareSheet(image: UIImage, message: String?) {
+        var activityItems: [Any] = [image]
+        if let message, !message.isEmpty {
+            activityItems.insert(message, at: 0)
+        }
+
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         guard let presenter = topViewController() else { return }
 
         if let popover = controller.popoverPresentationController {
@@ -93,14 +109,25 @@ enum InstagramStoriesShareService {
         presenter.present(controller, animated: true)
     }
 
+    static func message(for question: Question, isDailyQuestion: Bool = false) -> String {
+        let title = isDailyQuestion ? "Pergunta do Dia" : "Pergunta \(question.number)"
+        let text = question.question.trimmingCharacters(in: .whitespacesAndNewlines)
+        return "\(title) — O Livro dos Espíritos\n\n\u{201C}\(text)\u{201D}\n\nCapítulo \(question.chapterNumber) — \(question.chapterTitle)"
+    }
+
     @MainActor
-    private static func topViewController(
-        base: UIViewController? = UIApplication.shared.connectedScenes
+    private static func topViewController() -> UIViewController? {
+        let rootViewController = UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
-            .flatMap(\.windows)
-            .first(where: \.isKeyWindow)?
+            .flatMap { $0.windows }
+            .first(where: { $0.isKeyWindow })?
             .rootViewController
-    ) -> UIViewController? {
+
+        return topViewController(base: rootViewController)
+    }
+
+    @MainActor
+    private static func topViewController(base: UIViewController?) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
         }

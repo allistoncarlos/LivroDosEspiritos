@@ -4,8 +4,15 @@ import UIKit
 struct HomeView: View {
     @Environment(BookDataStore.self) private var store
     @State private var dailyQuestion: Question?
+    @State private var isPreparingShare = false
+    @State private var shareErrorMessage: String?
 
     private let rotationStore = DailyQuestionRotationStore.shared
+
+    private enum ShareDestination {
+        case stories
+        case message
+    }
 
     var body: some View {
         ScrollView {
@@ -48,52 +55,139 @@ struct HomeView: View {
                 .padding(.horizontal)
 
             if let dailyQuestion {
-                NavigationLink(value: dailyQuestion) {
-                    VStack(alignment: .leading, spacing: 16) {
-                        HStack {
-                            Label("Uma reflexão para hoje", systemImage: "sparkles")
-                                .font(.subheadline.weight(.semibold))
-                            Spacer()
-                            Image(systemName: "arrow.up.right")
-                                .font(.subheadline.weight(.bold))
+                VStack(alignment: .leading, spacing: 16) {
+                    NavigationLink(value: dailyQuestion) {
+                        VStack(alignment: .leading, spacing: 16) {
+                            HStack {
+                                Label("Uma reflexão para hoje", systemImage: "sparkles")
+                                    .font(.subheadline.weight(.semibold))
+                                Spacer()
+                                Image(systemName: "arrow.up.right")
+                                    .font(.subheadline.weight(.bold))
+                            }
+
+                            Text(dailyQuestion.question)
+                                .font(.title3.weight(.medium))
+                                .multilineTextAlignment(.leading)
+                                .fixedSize(horizontal: false, vertical: true)
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Pergunta \(dailyQuestion.number)")
+                                    .font(.subheadline.weight(.semibold))
+                                Text("Capítulo \(dailyQuestion.chapterNumber) — \(dailyQuestion.chapterTitle)")
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
+                            }
+                        }
+                        .foregroundStyle(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .buttonStyle(.plain)
+
+                    Menu {
+                        Button {
+                            shareDailyQuestion(to: .stories)
+                        } label: {
+                            Label("Instagram Story", systemImage: "camera.aperture")
                         }
 
-                        Text(dailyQuestion.question)
-                            .font(.title3.weight(.medium))
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Pergunta \(dailyQuestion.number)")
-                                .font(.subheadline.weight(.semibold))
-                            Text("Capítulo \(dailyQuestion.chapterNumber) — \(dailyQuestion.chapterTitle)")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(2)
+                        Button {
+                            shareDailyQuestion(to: .message)
+                        } label: {
+                            Label("Mensagem…", systemImage: "message")
                         }
+                    } label: {
+                        Label("Compartilhar Pergunta do Dia", systemImage: "square.and.arrow.up")
+                            .font(.subheadline.weight(.bold))
+                            .frame(maxWidth: .infinity)
                     }
-                    .foregroundStyle(.primary)
-                    .padding(20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(
-                        LinearGradient(
-                            colors: [Color.accentColor.opacity(0.2), Color.accentColor.opacity(0.08)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        in: RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    )
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 24, style: .continuous)
-                            .stroke(Color.accentColor.opacity(0.25), lineWidth: 1)
-                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.accentColor)
+                    .disabled(isPreparingShare)
                 }
-                .buttonStyle(.plain)
+                .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    LinearGradient(
+                        colors: [Color.accentColor.opacity(0.24), Color.accentColor.opacity(0.08)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    in: RoundedRectangle(cornerRadius: 24, style: .continuous)
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .stroke(Color.accentColor.opacity(0.3), lineWidth: 1)
+                }
+                .overlay(alignment: .topTrailing) {
+                    Text("DESTAQUE")
+                        .font(.caption2.weight(.black))
+                        .tracking(1.2)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.accentColor, in: Capsule())
+                        .offset(x: -16, y: -13)
+                }
                 .padding(.horizontal)
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 36)
+            }
+        }
+        .alert("Não foi possível compartilhar", isPresented: Binding(
+            get: { shareErrorMessage != nil },
+            set: { if !$0 { shareErrorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { shareErrorMessage = nil }
+        } message: {
+            Text(shareErrorMessage ?? "")
+        }
+    }
+
+    @MainActor
+    private func shareDailyQuestion(to destination: ShareDestination) {
+        guard let dailyQuestion, !isPreparingShare else { return }
+        isPreparingShare = true
+
+        Task { @MainActor in
+            defer { isPreparingShare = false }
+
+            guard let image = InstagramStoriesShareService.renderShareImage(
+                for: dailyQuestion,
+                isDailyQuestion: true
+            ) else {
+                shareErrorMessage = "Falha ao montar o card da pergunta do dia."
+                return
+            }
+
+            let message = InstagramStoriesShareService.message(for: dailyQuestion, isDailyQuestion: true)
+
+            switch destination {
+            case .stories:
+                switch InstagramStoriesShareService.shareToStories(image: image) {
+                case .openedInstagramStories:
+                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                        "pergunta_numero": dailyQuestion.number,
+                        "modo": "pergunta_do_dia_stories"
+                    ])
+                case .systemShareFallback:
+                    InstagramStoriesShareService.presentSystemShareSheet(image: image, message: message)
+                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                        "pergunta_numero": dailyQuestion.number,
+                        "modo": "pergunta_do_dia_sistema"
+                    ])
+                case .failed(let error):
+                    shareErrorMessage = error
+                }
+            case .message:
+                InstagramStoriesShareService.presentSystemShareSheet(image: image, message: message)
+                AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                    "pergunta_numero": dailyQuestion.number,
+                    "modo": "pergunta_do_dia_mensagem"
+                ])
             }
         }
     }
