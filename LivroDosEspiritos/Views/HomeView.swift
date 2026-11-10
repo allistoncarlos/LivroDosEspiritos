@@ -9,11 +9,6 @@ struct HomeView: View {
 
     private let rotationStore = DailyQuestionRotationStore.shared
 
-    private enum ShareDestination {
-        case stories
-        case message
-    }
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
@@ -82,22 +77,16 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .buttonStyle(.plain)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        trackClick(type: "question")
+                    })
 
                     HStack {
                         Spacer()
 
-                        Menu {
-                            Button {
-                                shareDailyQuestion(to: .stories)
-                            } label: {
-                                Label("Instagram Story", systemImage: "camera.aperture")
-                            }
-
-                            Button {
-                                shareDailyQuestion(to: .message)
-                            } label: {
-                                Label("Mensagem…", systemImage: "message")
-                            }
+                        Button {
+                            trackClick(type: "share")
+                            shareDailyQuestion()
                         } label: {
                             Image(systemName: "square.and.arrow.up")
                                 .font(.headline.weight(.bold))
@@ -141,7 +130,7 @@ struct HomeView: View {
     }
 
     @MainActor
-    private func shareDailyQuestion(to destination: ShareDestination) {
+    private func shareDailyQuestion() {
         guard let dailyQuestion, !isPreparingShare else { return }
         isPreparingShare = true
 
@@ -156,32 +145,10 @@ struct HomeView: View {
                 return
             }
 
-            let message = InstagramStoriesShareService.message(for: dailyQuestion, isDailyQuestion: true)
-
-            switch destination {
-            case .stories:
-                switch InstagramStoriesShareService.shareToStories(image: image) {
-                case .openedInstagramStories:
-                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
-                        "pergunta_numero": dailyQuestion.number,
-                        "modo": "pergunta_do_dia_stories"
-                    ])
-                case .systemShareFallback:
-                    InstagramStoriesShareService.presentSystemShareSheet(image: image, message: message)
-                    AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
-                        "pergunta_numero": dailyQuestion.number,
-                        "modo": "pergunta_do_dia_sistema"
-                    ])
-                case .failed(let error):
-                    shareErrorMessage = error
-                }
-            case .message:
-                InstagramStoriesShareService.presentSystemShareSheet(image: image, message: message)
-                AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
-                    "pergunta_numero": dailyQuestion.number,
-                    "modo": "pergunta_do_dia_mensagem"
-                ])
-            }
+            InstagramStoriesShareService.presentSystemShareSheet(
+                image: image,
+                message: InstagramStoriesShareService.message(for: dailyQuestion, isDailyQuestion: true)
+            )
         }
     }
 
@@ -202,9 +169,26 @@ struct HomeView: View {
                         PartCard(part: part)
                     }
                     .buttonStyle(.plain)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        trackClick(type: clickType(for: part.number))
+                    })
                 }
             }
             .padding(.horizontal)
+        }
+    }
+
+    private func trackClick(type: String) {
+        AnalyticsService.track(AnalyticsEvent.clique, properties: ["type": type])
+    }
+
+    private func clickType(for partNumber: Int) -> String {
+        switch partNumber {
+        case 1: "firstPart"
+        case 2: "secondPart"
+        case 3: "thirdPart"
+        case 4: "fourthPart"
+        default: "part\(partNumber)"
         }
     }
 
