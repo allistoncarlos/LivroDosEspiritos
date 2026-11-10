@@ -44,6 +44,7 @@ struct SearchView: View {
                     )
                     .listRowInsets(EdgeInsets(top: 36, leading: 20, bottom: 24, trailing: 20))
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
                 }
             } else if results.isEmpty {
                 ContentUnavailableView.search(text: query)
@@ -141,7 +142,7 @@ private struct SearchEmptyState: View {
     private let suggestions = ["Deus", "Espíritos", "Leis morais", "Vida futura"]
 
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(alignment: .center, spacing: 18) {
             Image(systemName: "text.magnifyingglass")
                 .font(.system(size: 34, weight: .medium))
                 .foregroundStyle(Color.accentColor)
@@ -157,6 +158,7 @@ private struct SearchEmptyState: View {
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: 620, alignment: .center)
             }
 
             if !isSearching {
@@ -165,24 +167,27 @@ private struct SearchEmptyState: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
 
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
+                    HStack(spacing: 8) {
                         ForEach(suggestions, id: \.self) { suggestion in
-                            Button(suggestion) {
+                            Button {
                                 onSuggestionSelected(suggestion)
+                            } label: {
+                                Text(suggestion)
+                                    .fixedSize()
                             }
-                            .lineLimit(1)
                             .fixedSize(horizontal: true, vertical: false)
                             .font(.footnote.weight(.medium))
                             .buttonStyle(.bordered)
                             .tint(.accentColor)
                         }
                     }
+                    .frame(maxWidth: 560, alignment: .center)
                 }
                 .padding(.top, 6)
             }
         }
-        .frame(maxWidth: 420)
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: 620, alignment: .center)
+        .frame(maxWidth: .infinity, alignment: .center)
         .padding(.horizontal, 8)
         .bookTypography()
     }
