@@ -1,0 +1,4 @@
+module AmplitudeSwift {
+header "AmplitudeSwift-Swift.h"
+export *
+}

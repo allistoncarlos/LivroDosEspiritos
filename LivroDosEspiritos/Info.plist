@@ -4,6 +4,16 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<!-- Obrigatório pela Meta (desde jan/2023) para abrir o editor de Instagram Stories.
+	     Crie um app em https://developers.facebook.com e cole o App ID aqui.
+	     Associe o Bundle ID com.alliston.LivroEspiritos (ou o do target) ao app. -->
+	<key>FacebookAppID</key>
+	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram-stories</string>
+		<string>instagram</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -1,0 +1,24 @@
+Target dependency graph (10 targets)
+Target 'LivroDosEspiritos' in project 'LivroDosEspiritos'
+➜ Explicit dependency on target 'LivroDosEspiritosWatch' in project 'LivroDosEspiritos'
+➜ Explicit dependency on target 'AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'Sentry' in project 'Sentry'
+Target 'Sentry' in project 'Sentry'
+➜ Explicit dependency on target 'SentryCppHelper' in project 'Sentry'
+Target 'SentryCppHelper' in project 'Sentry' (no dependencies)
+Target 'LivroDosEspiritosWatch' in project 'LivroDosEspiritos'
+➜ Explicit dependency on target 'AmplitudeSwift' in project 'Amplitude-Swift'
+Target 'AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'Amplitude-Swift_AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'AmplitudeCoreFramework' in project 'AmplitudeCore'
+➜ Explicit dependency on target 'AnalyticsConnector' in project 'analytics-connector-ios'
+Target 'AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'Amplitude-Swift_AmplitudeSwift' in project 'Amplitude-Swift'
+➜ Explicit dependency on target 'AmplitudeCoreFramework' in project 'AmplitudeCore'
+➜ Explicit dependency on target 'AnalyticsConnector' in project 'analytics-connector-ios'
+Target 'AnalyticsConnector' in project 'analytics-connector-ios'
+➜ Explicit dependency on target 'AnalyticsConnector' in project 'analytics-connector-ios'
+Target 'AnalyticsConnector' in project 'analytics-connector-ios' (no dependencies)
+Target 'AmplitudeCoreFramework' in project 'AmplitudeCore' (no dependencies)
+Target 'Amplitude-Swift_AmplitudeSwift' in project 'Amplitude-Swift' (no dependencies)

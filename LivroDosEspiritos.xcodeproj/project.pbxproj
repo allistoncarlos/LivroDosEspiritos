@@ -66,8 +66,6 @@
 		};
 		W00100022F00000100000001 /* LivroDosEspiritosWatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = LivroDosEspiritosWatch;
 			sourceTree = "<group>";
 		};
@@ -306,9 +304,9 @@
 				DEVELOPMENT_TEAM = DLA5J5JEZ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro Espíritos";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,9 +335,9 @@
 				DEVELOPMENT_TEAM = DLA5J5JEZ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = LivroDosEspiritos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Livro Espíritos";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -469,15 +467,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		72DBEA2C6696916BAE26B51A /* AmplitudeSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
-			productName = AmplitudeSwift;
-		};
 		5EA6E9E349204C5B9A6D0E5B /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6CE89FE25E39FFD599DA1234 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		72DBEA2C6696916BAE26B51A /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 056A708DA57F113E004D2309 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
 		};
 		D2CD9560B96266CA36982918 /* AmplitudeSwift */ = {
 			isa = XCSwiftPackageProductDependency;

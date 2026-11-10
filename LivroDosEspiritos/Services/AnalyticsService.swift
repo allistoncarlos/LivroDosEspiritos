@@ -9,6 +9,7 @@ enum AnalyticsEvent {
     static let notificacaoDiariaConfigurada = "Notificação Diária Configurada"
     static let notificacaoDiariaAberta = "Notificação Diária Aberta"
     static let linkDeContatoClicado = "Link de Contato Clicado"
+    static let perguntaCompartilhadaInstagram = "Pergunta Compartilhada Instagram"
 }
 
 enum AnalyticsService {

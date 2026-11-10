@@ -73,7 +73,7 @@ struct MainTabView: View {
                     NavigationStack {
                         SearchView(
                             query: $searchText,
-                            installsSearchField: false,
+                            installsSearchField: true,
                             showsCustomEmptyState: false
                         )
                     }
@@ -85,12 +85,6 @@ struct MainTabView: View {
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Pergunta, resposta ou tema")
-            .searchSuggestions {
-                SearchSuggestionList(query: $searchText)
-            }
-            .tabViewSearchActivation(.searchTabSelection)
-            .modifier(SearchPresentationModifier())
         } else {
             TabView(selection: $selectedTab) {
                 bookNavigation

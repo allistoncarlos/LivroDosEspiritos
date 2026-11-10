@@ -1,0 +1,219 @@
+{
+  "" : {
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritos-primary.dia",
+    "emit-module-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritos-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritos-primary-emit-module.dia",
+    "pch" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritos-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritos-primary.swiftdeps"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/AppDelegate.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AppDelegate~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/LivroDosEspiritosApp.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/LivroDosEspiritosApp~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Models/BookModels.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookModels~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/AnalyticsService.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AnalyticsService~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/BookDataStore.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/BookDataStore~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/CrashReportingService.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/CrashReportingService~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/DailyQuestionNotificationService.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionNotificationService~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/DailyQuestionRotationStore.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionRotationStore~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/InstagramStoriesShareService.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/InstagramStoriesShareService~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/NotificationSchedulePreferences.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/NotificationSchedulePreferences~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Services/PendingQuestionNavigation.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PendingQuestionNavigation~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Chapters/ChapterDetailView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterDetailView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Chapters/ChapterListView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/ChapterListView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Chapters/PartListView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/PartListView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/MainTabView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/MainTabView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Questions/QuestionDetailView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionDetailView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Search/SearchView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/SearchView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Settings/AboutBrandSection.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/AboutBrandSection~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Settings/DailyQuestionSettingsView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/DailyQuestionSettingsView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/LivroDosEspiritos/Views/Share/QuestionShareCardView.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/QuestionShareCardView~partial.swiftmodule"
+  },
+  "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Volumes/alliston/Developer/iOS/LivroDosEspiritos-ios/build/LivroDosEspiritos.build/Debug-iphonesimulator/LivroDosEspiritos.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

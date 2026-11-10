@@ -1,0 +1,4 @@
+module AnalyticsConnector {
+header "AnalyticsConnector-Swift.h"
+export *
+}

@@ -3,6 +3,9 @@ import SwiftUI
 struct QuestionDetailView: View {
     let question: Question
 
+    @State private var isPreparingShare = false
+    @State private var shareErrorMessage: String?
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -26,6 +29,29 @@ struct QuestionDetailView: View {
         .bookTypography()
         .navigationTitle("Pergunta \(question.number)")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    shareToInstagramStories()
+                } label: {
+                    if isPreparingShare {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
+                .disabled(isPreparingShare)
+                .accessibilityLabel("Compartilhar no Instagram Stories")
+            }
+        }
+        .alert("Não foi possível compartilhar", isPresented: Binding(
+            get: { shareErrorMessage != nil },
+            set: { if !$0 { shareErrorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { shareErrorMessage = nil }
+        } message: {
+            Text(shareErrorMessage ?? "")
+        }
         .onAppear {
             AnalyticsService.track(AnalyticsEvent.perguntaVisualizada, properties: [
                 "pergunta_numero": question.number,
@@ -105,6 +131,38 @@ struct QuestionDetailView: View {
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+            }
+        }
+    }
+
+    @MainActor
+    private func shareToInstagramStories() {
+        guard !isPreparingShare else { return }
+        isPreparingShare = true
+
+        Task { @MainActor in
+            defer { isPreparingShare = false }
+
+            guard let image = InstagramStoriesShareService.renderShareImage(for: question) else {
+                shareErrorMessage = "Falha ao montar o card da pergunta."
+                return
+            }
+
+            let outcome = InstagramStoriesShareService.shareToStories(image: image)
+            switch outcome {
+            case .openedInstagramStories:
+                AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                    "pergunta_numero": question.number,
+                    "modo": "stories"
+                ])
+            case .systemShareFallback:
+                InstagramStoriesShareService.presentSystemShareSheet(image: image)
+                AnalyticsService.track(AnalyticsEvent.perguntaCompartilhadaInstagram, properties: [
+                    "pergunta_numero": question.number,
+                    "modo": "sistema"
+                ])
+            case .failed(let message):
+                shareErrorMessage = message
             }
         }
     }
