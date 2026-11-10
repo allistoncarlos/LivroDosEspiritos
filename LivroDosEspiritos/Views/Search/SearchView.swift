@@ -22,11 +22,14 @@ struct SearchView: View {
     }
 
     var body: some View {
-        if installsSearchField {
-            searchableContent
-        } else {
-            content
+        Group {
+            if installsSearchField {
+                searchableContent
+            } else {
+                content
+            }
         }
+        .bookTypography()
     }
 
     private var content: some View {
@@ -114,17 +117,20 @@ struct SearchSuggestionList: View {
     private let suggestions = ["Deus", "Espíritos", "Leis morais", "Vida futura"]
 
     var body: some View {
-        if query.isEmpty {
-            Section("Sugestões") {
-                ForEach(suggestions, id: \.self) { suggestion in
-                    Button {
-                        query = suggestion
-                    } label: {
-                        Label(suggestion, systemImage: "magnifyingglass")
+        Group {
+            if query.isEmpty {
+                Section("Sugestões") {
+                    ForEach(suggestions, id: \.self) { suggestion in
+                        Button {
+                            query = suggestion
+                        } label: {
+                            Label(suggestion, systemImage: "magnifyingglass")
+                        }
                     }
                 }
             }
         }
+        .bookTypography()
     }
 }
 
@@ -176,6 +182,7 @@ private struct SearchEmptyState: View {
         .frame(maxWidth: 420)
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 8)
+        .bookTypography()
     }
 }
 
@@ -213,5 +220,6 @@ struct SearchResultRow: View {
                 .foregroundStyle(.tertiary)
         }
         .padding(.vertical, 4)
+        .bookTypography()
     }
 }
