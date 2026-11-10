@@ -30,6 +30,12 @@ final class DailyQuestionRotationStore {
         assignments()[dateKey(for: date, calendar: calendar)]
     }
 
+    /// Retorna a pergunta atribuída ao dia atual, criando a atribuição quando necessário.
+    /// A mesma atribuição é usada pelo agendamento da notificação e pela home.
+    func questionForToday(calendar: Calendar = .current) -> Int {
+        questionForScheduling(on: Date(), calendar: calendar)
+    }
+
     /// Escolhe pergunta para agendar em um dia, sem consumir o ciclo.
     func questionForScheduling(on date: Date, calendar: Calendar = .current) -> Int {
         let key = dateKey(for: date, calendar: calendar)

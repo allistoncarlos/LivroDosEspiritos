@@ -12,7 +12,7 @@ struct MainTabView: View {
             if let book = store.book {
                 TabView(selection: $selectedTab) {
                     NavigationStack(path: $chaptersNavigationPath) {
-                        PartListView(book: book)
+                        HomeView()
                             .navigationDestination(for: BookPart.self) { part in
                                 ChapterListView(part: part)
                             }
@@ -24,7 +24,7 @@ struct MainTabView: View {
                             }
                     }
                     .tabItem {
-                        Label("Capítulos", systemImage: "books.vertical")
+                        Label("Livro", systemImage: "books.vertical")
                     }
                     .tag(0)
 
