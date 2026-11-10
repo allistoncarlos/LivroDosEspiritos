@@ -2,6 +2,7 @@ import Foundation
 
 enum WatchPendingQuestionNavigation {
     private static let key = "watch.pendingNotificationQuestionNumber"
+    private static let notificationQuestionNumberKey = "questionNumber"
 
     static func store(questionNumber: Int) {
         UserDefaults.standard.set(questionNumber, forKey: key)
@@ -26,14 +27,13 @@ enum WatchPendingQuestionNavigation {
             return number
         }
 
-        let key = WatchNotificationHandler.questionNumberKey
-        if let number = userInfo[key] as? Int {
+        if let number = userInfo[notificationQuestionNumberKey] as? Int {
             return number
         }
-        if let number = userInfo[key] as? NSNumber {
+        if let number = userInfo[notificationQuestionNumberKey] as? NSNumber {
             return number.intValue
         }
-        if let string = userInfo[key] as? String, let number = Int(string) {
+        if let string = userInfo[notificationQuestionNumberKey] as? String, let number = Int(string) {
             return number
         }
         return nil
