@@ -99,7 +99,7 @@ struct HomeView: View {
                             Circle()
                                 .strokeBorder(.white.opacity(0.34), lineWidth: 1)
                         }
-                        .glassEffect(.regular, in: Circle())
+                        .modifier(HomeShareGlassEffect())
                         .disabled(isPreparingShare)
                     }
                 }
@@ -201,6 +201,17 @@ struct HomeView: View {
         guard store.book != nil else { return }
         let number = rotationStore.questionForToday()
         dailyQuestion = store.question(number: number)
+    }
+}
+
+private struct HomeShareGlassEffect: ViewModifier {
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.glassEffect(.regular, in: Circle())
+        } else {
+            content
+        }
     }
 }
 

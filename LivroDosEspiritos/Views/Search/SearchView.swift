@@ -165,11 +165,13 @@ private struct SearchEmptyState: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
 
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
                         ForEach(suggestions, id: \.self) { suggestion in
                             Button(suggestion) {
                                 onSuggestionSelected(suggestion)
                             }
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
                             .font(.footnote.weight(.medium))
                             .buttonStyle(.bordered)
                             .tint(.accentColor)
