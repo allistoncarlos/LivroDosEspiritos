@@ -4,6 +4,11 @@ import Observation
 @MainActor
 @Observable
 final class BookDataStore {
+    private struct LoadResult {
+        let book: BookData?
+        let errorMessage: String?
+    }
+
     private(set) var book: BookData?
     private(set) var loadError: String?
     private var questionsByNumber: [Int: Question] = [:]
@@ -13,30 +18,31 @@ final class BookDataStore {
     func load() async {
         guard book == nil else { return }
 
-        let result = await Task.detached(priority: .userInitiated) {
-            Self.decodeBook()
-        }.value
+        let result = await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                continuation.resume(returning: Self.decodeBook())
+            }
+        }
 
-        switch result {
-        case let .success(decoded):
+        if let decoded = result.book {
             book = decoded
             questionsByNumber = Dictionary(uniqueKeysWithValues: decoded.questions.map { ($0.number, $0) })
             loadError = nil
-        case let .failure(message):
-            loadError = message
+        } else {
+            loadError = result.errorMessage
         }
     }
 
-    private nonisolated static func decodeBook() -> Result<BookData, String> {
+    private nonisolated static func decodeBook() -> LoadResult {
         guard let url = Bundle.main.url(forResource: "questions", withExtension: "json") else {
-            return .failure("Arquivo questions.json não encontrado no bundle.")
+            return LoadResult(book: nil, errorMessage: "Arquivo questions.json não encontrado no bundle.")
         }
 
         do {
             let data = try Data(contentsOf: url)
-            return .success(try JSONDecoder().decode(BookData.self, from: data))
+            return LoadResult(book: try JSONDecoder().decode(BookData.self, from: data), errorMessage: nil)
         } catch {
-            return .failure("Falha ao carregar o livro: \(error.localizedDescription)")
+            return LoadResult(book: nil, errorMessage: "Falha ao carregar o livro: \(error.localizedDescription)")
         }
     }
 

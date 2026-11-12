@@ -54,7 +54,7 @@ enum DailyQuestionNotificationService {
             let key = dateKey(for: fireDate, calendar: calendar)
             if !pendingDateKeys.contains(key) {
                 let questionNumber = store.questionForScheduling(on: fireDate, calendar: calendar)
-                guard let question = dataStore.question(number: questionNumber) else {
+                guard let question = await dataStore.question(number: questionNumber) else {
                     fireDate = calendar.date(byAdding: .day, value: 1, to: fireDate) ?? fireDate
                     continue
                 }
