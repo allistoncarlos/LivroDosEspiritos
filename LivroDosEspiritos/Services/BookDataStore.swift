@@ -1,30 +1,42 @@
 import Foundation
 import Observation
 
+@MainActor
 @Observable
 final class BookDataStore {
     private(set) var book: BookData?
     private(set) var loadError: String?
     private var questionsByNumber: [Int: Question] = [:]
 
-    init() {
-        load()
+    init() {}
+
+    func load() async {
+        guard book == nil else { return }
+
+        let result = await Task.detached(priority: .userInitiated) {
+            Self.decodeBook()
+        }.value
+
+        switch result {
+        case let .success(decoded):
+            book = decoded
+            questionsByNumber = Dictionary(uniqueKeysWithValues: decoded.questions.map { ($0.number, $0) })
+            loadError = nil
+        case let .failure(message):
+            loadError = message
+        }
     }
 
-    func load() {
+    private nonisolated static func decodeBook() -> Result<BookData, String> {
         guard let url = Bundle.main.url(forResource: "questions", withExtension: "json") else {
-            loadError = "Arquivo questions.json não encontrado no bundle."
-            return
+            return .failure("Arquivo questions.json não encontrado no bundle.")
         }
 
         do {
             let data = try Data(contentsOf: url)
-            let decoded = try JSONDecoder().decode(BookData.self, from: data)
-            book = decoded
-            questionsByNumber = Dictionary(uniqueKeysWithValues: decoded.questions.map { ($0.number, $0) })
-            loadError = nil
+            return .success(try JSONDecoder().decode(BookData.self, from: data))
         } catch {
-            loadError = "Falha ao carregar o livro: \(error.localizedDescription)"
+            return .failure("Falha ao carregar o livro: \(error.localizedDescription)")
         }
     }
 
