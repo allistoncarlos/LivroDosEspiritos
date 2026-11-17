@@ -92,13 +92,9 @@ struct MainTabView: View {
                         bookNavigation
                     }
 
-                    Tab(value: .search, role: .search) {
+                    Tab("Busca", systemImage: "magnifyingglass", value: .search) {
                         NavigationStack {
-                            SearchView(
-                                query: $searchText,
-                                installsSearchField: false,
-                                showsCustomEmptyState: false
-                            )
+                            SearchView(query: $searchText)
                         }
                     }
 
@@ -108,12 +104,6 @@ struct MainTabView: View {
                         }
                     }
                 }
-                .searchable(text: $searchText, prompt: "Pergunta, resposta ou tema")
-                .searchSuggestions {
-                    SearchSuggestionList(query: $searchText)
-                }
-                .tabViewSearchActivation(.searchTabSelection)
-                .modifier(SearchPresentationModifier())
             }
         } else {
             if isPad {
