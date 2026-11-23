@@ -3,6 +3,7 @@ import SwiftUI
 struct SearchView: View {
     @Environment(BookDataStore.self) private var store
     @Environment(\.isSearching) private var isSearching
+    @State private var results: [SearchResult] = []
     @Binding private var query: String
     private let installsSearchField: Bool
     private let showsCustomEmptyState: Bool
@@ -15,10 +16,6 @@ struct SearchView: View {
         _query = query
         self.installsSearchField = installsSearchField
         self.showsCustomEmptyState = showsCustomEmptyState
-    }
-
-    private var results: [SearchResult] {
-        store.search(query)
     }
 
     var body: some View {
@@ -70,14 +67,32 @@ struct SearchView: View {
         }
         .task(id: query) {
             let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmed.isEmpty else { return }
+            guard !trimmed.isEmpty else {
+                results = []
+                return
+            }
 
-            try? await Task.sleep(for: .milliseconds(600))
+            do {
+                try await Task.sleep(for: .milliseconds(150))
+            } catch {
+                return
+            }
+            guard !Task.isCancelled else { return }
+
+            let matchingResults = await store.search(query)
+            guard !Task.isCancelled else { return }
+            results = matchingResults
+
+            do {
+                try await Task.sleep(for: .milliseconds(450))
+            } catch {
+                return
+            }
             guard !Task.isCancelled else { return }
 
             AnalyticsService.track(AnalyticsEvent.buscaRealizada, properties: [
                 "tamanho_termo": trimmed.count,
-                "resultados": results.count
+                "resultados": matchingResults.count
             ])
         }
     }

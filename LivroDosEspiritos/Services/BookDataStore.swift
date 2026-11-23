@@ -4,10 +4,13 @@ import Observation
 @MainActor
 @Observable
 final class BookDataStore {
-    private struct LoadResult {
+    private struct LoadResult: Sendable {
         let book: BookData?
+        let searchIndex: [SearchDocument]
         let errorMessage: String?
     }
+
+    private var searchIndex: [SearchDocument] = []
 
     private(set) var book: BookData?
     private(set) var loadError: String?
@@ -26,6 +29,7 @@ final class BookDataStore {
 
         if let decoded = result.book {
             book = decoded
+            searchIndex = result.searchIndex
             questionsByNumber = Dictionary(uniqueKeysWithValues: decoded.questions.map { ($0.number, $0) })
             loadError = nil
         } else {
@@ -35,14 +39,16 @@ final class BookDataStore {
 
     private nonisolated static func decodeBook() -> LoadResult {
         guard let url = Bundle.main.url(forResource: "questions", withExtension: "json") else {
-            return LoadResult(book: nil, errorMessage: "Arquivo questions.json não encontrado no bundle.")
+            return LoadResult(book: nil, searchIndex: [], errorMessage: "Arquivo questions.json não encontrado no bundle.")
         }
 
         do {
             let data = try Data(contentsOf: url)
-            return LoadResult(book: try JSONDecoder().decode(BookData.self, from: data), errorMessage: nil)
+            let decoded = try JSONDecoder().decode(BookData.self, from: data)
+            let searchIndex = decoded.questions.map(SearchDocument.init)
+            return LoadResult(book: decoded, searchIndex: searchIndex, errorMessage: nil)
         } catch {
-            return LoadResult(book: nil, errorMessage: "Falha ao carregar o livro: \(error.localizedDescription)")
+            return LoadResult(book: nil, searchIndex: [], errorMessage: "Falha ao carregar o livro: \(error.localizedDescription)")
         }
     }
 
@@ -95,35 +101,83 @@ final class BookDataStore {
         return groups
     }
 
-    func search(_ query: String) -> [SearchResult] {
+    func search(_ query: String) async -> [SearchResult] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty, let book else { return [] }
+        guard !trimmed.isEmpty, !searchIndex.isEmpty else { return [] }
 
         let terms = trimmed
             .folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
             .split(separator: " ")
             .map(String.init)
 
-        return book.questions.compactMap { question in
-            var matched: [String] = []
+        let index = searchIndex
+        let searchTask = Task.detached(priority: .userInitiated) {
+            Self.performSearch(terms: terms, index: index)
+        }
 
-            if matches(question.question, terms: terms) { matched.append("Pergunta") }
-            if matches(question.answer, terms: terms) { matched.append("Resposta") }
-            if matches(question.commentary, terms: terms) { matched.append("Comentário") }
-            if question.notes.contains(where: { matches($0.text, terms: terms) }) {
-                matched.append("Nota")
-            }
-            if matches(question.section, terms: terms) { matched.append("Seção") }
-            if matches(question.chapterTitle, terms: terms) { matched.append("Capítulo") }
-            if matches("\(question.number)", terms: terms) { matched.append("Número") }
-
-            return matched.isEmpty ? nil : SearchResult(question: question, matchedFields: matched)
+        return await withTaskCancellationHandler {
+            await searchTask.value
+        } onCancel: {
+            searchTask.cancel()
         }
     }
 
-    private func matches(_ text: String, terms: [String]) -> Bool {
-        guard !text.isEmpty else { return false }
-        let normalized = text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
-        return terms.allSatisfy { normalized.contains($0) }
+    private nonisolated static func performSearch(terms: [String], index: [SearchDocument]) -> [SearchResult] {
+        var results: [SearchResult] = []
+        results.reserveCapacity(32)
+
+        for (index, document) in index.enumerated() {
+            if index.isMultiple(of: 16), Task.isCancelled {
+                return []
+            }
+
+            var matched: [String] = []
+
+            if document.matches(document.questionText, terms: terms) { matched.append("Pergunta") }
+            if document.matches(document.answer, terms: terms) { matched.append("Resposta") }
+            if document.matches(document.commentary, terms: terms) { matched.append("Comentário") }
+            if document.notes.contains(where: { document.matches($0, terms: terms) }) {
+                matched.append("Nota")
+            }
+            if document.matches(document.section, terms: terms) { matched.append("Seção") }
+            if document.matches(document.chapterTitle, terms: terms) { matched.append("Capítulo") }
+            if document.matches(document.number, terms: terms) { matched.append("Número") }
+
+            if !matched.isEmpty {
+                results.append(SearchResult(question: document.question, matchedFields: matched))
+            }
+        }
+
+        return results
+    }
+}
+
+private struct SearchDocument: Sendable {
+    let question: Question
+    let questionText: String
+    let answer: String
+    let commentary: String
+    let notes: [String]
+    let section: String
+    let chapterTitle: String
+    let number: String
+
+    init(question: Question) {
+        self.question = question
+        questionText = Self.normalize(question.question)
+        answer = Self.normalize(question.answer)
+        commentary = Self.normalize(question.commentary)
+        notes = question.notes.map { Self.normalize($0.text) }
+        section = Self.normalize(question.section)
+        chapterTitle = Self.normalize(question.chapterTitle)
+        number = String(question.number)
+    }
+
+    func matches(_ text: String, terms: [String]) -> Bool {
+        !text.isEmpty && terms.allSatisfy { text.contains($0) }
+    }
+
+    private static func normalize(_ text: String) -> String {
+        text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
     }
 }

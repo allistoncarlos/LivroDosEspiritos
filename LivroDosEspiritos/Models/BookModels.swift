@@ -1,6 +1,6 @@
 import Foundation
 
-struct BookData: Codable {
+struct BookData: Codable, Sendable {
     let title: String
     let subtitle: String
     let sourcePages: String
@@ -10,7 +10,7 @@ struct BookData: Codable {
     let questions: [Question]
 }
 
-struct BookPart: Codable, Identifiable, Hashable {
+struct BookPart: Codable, Identifiable, Hashable, Sendable {
     let number: Int
     let title: String
     let chapters: [BookChapter]
@@ -18,7 +18,7 @@ struct BookPart: Codable, Identifiable, Hashable {
     var id: Int { number }
 }
 
-struct BookChapter: Codable, Identifiable, Hashable {
+struct BookChapter: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let partNumber: Int
     let partTitle: String
@@ -34,12 +34,12 @@ struct BookChapter: Codable, Identifiable, Hashable {
     }
 }
 
-struct QuestionRange: Codable, Hashable {
+struct QuestionRange: Codable, Hashable, Sendable {
     let start: Int
     let end: Int
 }
 
-struct QuestionNote: Codable, Identifiable, Hashable {
+struct QuestionNote: Codable, Identifiable, Hashable, Sendable {
     let number: Int
     let type: String
     let text: String
@@ -51,7 +51,7 @@ struct QuestionNote: Codable, Identifiable, Hashable {
     }
 }
 
-struct Question: Codable, Identifiable, Hashable {
+struct Question: Codable, Identifiable, Hashable, Sendable {
     let number: Int
     let section: String
     let question: String
@@ -83,14 +83,14 @@ struct Question: Codable, Identifiable, Hashable {
     }
 }
 
-struct SectionGroup: Identifiable, Hashable {
+struct SectionGroup: Identifiable, Hashable, Sendable {
     let title: String
     let questions: [Question]
 
     var id: String { title }
 }
 
-struct SearchResult: Identifiable, Hashable {
+struct SearchResult: Identifiable, Hashable, Sendable {
     let question: Question
     let matchedFields: [String]
 
